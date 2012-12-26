@@ -14,7 +14,7 @@ using TimeTracker.Models;
 namespace TimeTracker.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
+     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
         //

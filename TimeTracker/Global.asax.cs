@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using WebMatrix.WebData;
 
 namespace TimeTracker
 {
@@ -23,6 +24,13 @@ namespace TimeTracker
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+
+            WebSecurity.InitializeDatabaseConnection(
+                  connectionStringName: "DefaultConnection",
+                  userTableName: "UserProfile",
+                  userIdColumn: "UserId",
+                  userNameColumn: "UserName",
+                  autoCreateTables: true);
         }
     }
 }
