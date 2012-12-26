@@ -25,12 +25,8 @@ namespace TimeTracker.DAL
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Employee> Employees { get; set; }
         public DbSet<Task> Tasks { get; set; }
         public DbSet<TasksStatu> TasksStatus { get; set; }
-        public DbSet<UserProfile> UserProfiles { get; set; }
-        public DbSet<webpages_Membership> webpages_Membership { get; set; }
-        public DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
-        public DbSet<webpages_Roles> webpages_Roles { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

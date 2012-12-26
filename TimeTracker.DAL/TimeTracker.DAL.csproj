@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7A21618F-4161-479C-AE59-6DFAD65261B4}</ProjectGuid>
+    <ProjectGuid>{41BA4786-6D6E-455D-9F3C-BFE5F56D3E25}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TimeTracker.DAL</RootNamespace>
@@ -46,9 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Employee.cs">
-      <DependentUpon>TimeTrackerDbModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Task.cs">
       <DependentUpon>TimeTrackerDbModel.tt</DependentUpon>
@@ -71,16 +68,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TimeTrackerDbModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="UserProfile.cs">
-      <DependentUpon>TimeTrackerDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="webpages_Membership.cs">
-      <DependentUpon>TimeTrackerDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="webpages_OAuthMembership.cs">
-      <DependentUpon>TimeTrackerDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="webpages_Roles.cs">
+    <Compile Include="User.cs">
       <DependentUpon>TimeTrackerDbModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

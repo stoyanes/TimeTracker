@@ -16,7 +16,7 @@ namespace TimeTracker.DAL
     {
         public Task()
         {
-            this.Employees = new HashSet<Employee>();
+            this.Users = new HashSet<User>();
         }
     
         public int Id { get; set; }
@@ -29,6 +29,6 @@ namespace TimeTracker.DAL
         public int StatusId { get; set; }
     
         public virtual TasksStatu TasksStatu { get; set; }
-        public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

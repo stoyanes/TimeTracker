@@ -15,16 +15,30 @@ namespace TimeTracker.Models
         {
         }
 
-        public DbSet<UserProfile> UserProfiles { get; set; }
+        //public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<Users> UserProfiles { get; set; }
     }
 
-    [Table("UserProfile")]
-    public class UserProfile
+    //[Table("UserProfile")]
+    //public class UserProfile
+    //{
+    //    [Key]
+    //    [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+    //    public int UserId { get; set; }
+    //    public string UserName { get; set; }
+    //}
+
+    [Table("Users")]
+    public class Users
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Position { get; set; }
+        public string Email { get; set; }
     }
 
     public class RegisterExternalLoginModel
@@ -86,6 +100,30 @@ namespace TimeTracker.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [StringLength(50, ErrorMessage = "Maximum 50 chars, minimum 2", MinimumLength = 2)]
+        [DataType(DataType.Text)]
+        [Display(Name = "First name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(50, ErrorMessage = "Maximum 50 chars, minimum 2", MinimumLength = 2)]
+        [DataType(DataType.Text)]
+        [Display(Name = "Last name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "Maximum 100 chars, minimum 2", MinimumLength = 2)]
+        [DataType(DataType.Text)]
+        [Display(Name = "Position")]
+        public string Position { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "Maximum 50 chars, minimum 2", MinimumLength = 2)]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
     }
 
     public class ExternalLogin

@@ -14,7 +14,7 @@ using TimeTracker.Models;
 namespace TimeTracker.Controllers
 {
     [Authorize]
-     [InitializeSimpleMembership]
+    [InitializeSimpleMembership]
     public class AccountController : Controller
     {
         //
@@ -79,7 +79,13 @@ namespace TimeTracker.Controllers
                 // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new {
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Position = model.Position,
+                        Email = model.Email
+                    }
+                    );
                     WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "Home");
                 }
@@ -265,12 +271,12 @@ namespace TimeTracker.Controllers
                 // Insert a new user into the database
                 using (UsersContext db = new UsersContext())
                 {
-                    UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+                    Users user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
                     // Check if user already exists
                     if (user == null)
                     {
                         // Insert name into the profile table
-                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
+                        db.UserProfiles.Add(new Users { UserName = model.UserName });
                         db.SaveChanges();
 
                         OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);

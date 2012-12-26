@@ -1,64 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="TimeTrackerDbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="TimeTrackerDbModelStoreContainer">
-    <EntitySet Name="Employees" EntityType="TimeTrackerDbModel.Store.Employees" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="EmployeesTasks" EntityType="TimeTrackerDbModel.Store.EmployeesTasks" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Tasks" EntityType="TimeTrackerDbModel.Store.Tasks" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TasksStatus" EntityType="TimeTrackerDbModel.Store.TasksStatus" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UserProfile" EntityType="TimeTrackerDbModel.Store.UserProfile" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="webpages_Membership" EntityType="TimeTrackerDbModel.Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="webpages_OAuthMembership" EntityType="TimeTrackerDbModel.Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="webpages_Roles" EntityType="TimeTrackerDbModel.Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="webpages_UsersInRoles" EntityType="TimeTrackerDbModel.Store.webpages_UsersInRoles" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_Employees_UserProfile" Association="TimeTrackerDbModel.Store.FK_Employees_UserProfile">
-      <End Role="UserProfile" EntitySet="UserProfile" />
-      <End Role="Employees" EntitySet="Employees" />
-    </AssociationSet>
-    <AssociationSet Name="FK_EmployeesTasks_Employees" Association="TimeTrackerDbModel.Store.FK_EmployeesTasks_Employees">
-      <End Role="Employees" EntitySet="Employees" />
-      <End Role="EmployeesTasks" EntitySet="EmployeesTasks" />
-    </AssociationSet>
-    <AssociationSet Name="FK_EmployeesTasks_Tasks" Association="TimeTrackerDbModel.Store.FK_EmployeesTasks_Tasks">
-      <End Role="Tasks" EntitySet="Tasks" />
-      <End Role="EmployeesTasks" EntitySet="EmployeesTasks" />
-    </AssociationSet>
-    <AssociationSet Name="fk_RoleId" Association="TimeTrackerDbModel.Store.fk_RoleId">
-      <End Role="webpages_Roles" EntitySet="webpages_Roles" />
-      <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
-    </AssociationSet>
+    <EntitySet Name="Users" EntityType="TimeTrackerDbModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UsersTasks" EntityType="TimeTrackerDbModel.Store.UsersTasks" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_TasksStatus_Tasks" Association="TimeTrackerDbModel.Store.FK_TasksStatus_Tasks">
       <End Role="Tasks" EntitySet="Tasks" />
       <End Role="TasksStatus" EntitySet="TasksStatus" />
     </AssociationSet>
-    <AssociationSet Name="fk_UserId" Association="TimeTrackerDbModel.Store.fk_UserId">
-      <End Role="UserProfile" EntitySet="UserProfile" />
-      <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+    <AssociationSet Name="FK_UsersTasks_Tasks" Association="TimeTrackerDbModel.Store.FK_UsersTasks_Tasks">
+      <End Role="Tasks" EntitySet="Tasks" />
+      <End Role="UsersTasks" EntitySet="UsersTasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsersTasks_Users" Association="TimeTrackerDbModel.Store.FK_UsersTasks_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UsersTasks" EntitySet="UsersTasks" />
     </AssociationSet>
   </EntityContainer>
-  <EntityType Name="Employees">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="50" />
-    <Property Name="SecondName" Type="nvarchar" Nullable="false" MaxLength="50" />
-    <Property Name="Position" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="100" />
-  </EntityType>
-  <EntityType Name="EmployeesTasks">
-    <Key>
-      <PropertyRef Name="EmployeeId" />
-      <PropertyRef Name="TaskId" />
-    </Key>
-    <Property Name="EmployeeId" Type="int" Nullable="false" />
-    <Property Name="TaskId" Type="int" Nullable="false" />
-  </EntityType>
   <EntityType Name="Tasks">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="200" />
     <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="300" />
     <Property Name="StartDate" Type="date" />
     <Property Name="EndDate" Type="date" />
@@ -70,104 +35,28 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="50" />
   </EntityType>
-  <EntityType Name="UserProfile">
+  <EntityType Name="Users">
     <Key>
       <PropertyRef Name="UserId" />
     </Key>
     <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="56" />
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Position" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="100" />
   </EntityType>
-  <EntityType Name="webpages_Membership">
+  <EntityType Name="UsersTasks">
     <Key>
-      <PropertyRef Name="UserId" />
+      <PropertyRef Name="UserID" />
+      <PropertyRef Name="TaskId" />
     </Key>
-    <Property Name="UserId" Type="int" Nullable="false" />
-    <Property Name="CreateDate" Type="datetime" />
-    <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
-    <Property Name="IsConfirmed" Type="bit" />
-    <Property Name="LastPasswordFailureDate" Type="datetime" />
-    <Property Name="PasswordFailuresSinceLastSuccess" Type="int" Nullable="false" />
-    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="128" />
-    <Property Name="PasswordChangedDate" Type="datetime" />
-    <Property Name="PasswordSalt" Type="nvarchar" Nullable="false" MaxLength="128" />
-    <Property Name="PasswordVerificationToken" Type="nvarchar" MaxLength="128" />
-    <Property Name="PasswordVerificationTokenExpirationDate" Type="datetime" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="TaskId" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="webpages_OAuthMembership">
-    <Key>
-      <PropertyRef Name="Provider" />
-      <PropertyRef Name="ProviderUserId" />
-    </Key>
-    <Property Name="Provider" Type="nvarchar" Nullable="false" MaxLength="30" />
-    <Property Name="ProviderUserId" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="UserId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="webpages_Roles">
-    <Key>
-      <PropertyRef Name="RoleId" />
-    </Key>
-    <Property Name="RoleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
-  </EntityType>
-  <EntityType Name="webpages_UsersInRoles">
-    <Key>
-      <PropertyRef Name="UserId" />
-      <PropertyRef Name="RoleId" />
-    </Key>
-    <Property Name="UserId" Type="int" Nullable="false" />
-    <Property Name="RoleId" Type="int" Nullable="false" />
-  </EntityType>
-  <Association Name="FK_Employees_UserProfile">
-    <End Role="UserProfile" Type="TimeTrackerDbModel.Store.UserProfile" Multiplicity="1" />
-    <End Role="Employees" Type="TimeTrackerDbModel.Store.Employees" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="UserProfile">
-        <PropertyRef Name="UserId" />
-      </Principal>
-      <Dependent Role="Employees">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_EmployeesTasks_Employees">
-    <End Role="Employees" Type="TimeTrackerDbModel.Store.Employees" Multiplicity="1" />
-    <End Role="EmployeesTasks" Type="TimeTrackerDbModel.Store.EmployeesTasks" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Employees">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="EmployeesTasks">
-        <PropertyRef Name="EmployeeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_EmployeesTasks_Tasks">
-    <End Role="Tasks" Type="TimeTrackerDbModel.Store.Tasks" Multiplicity="1" />
-    <End Role="EmployeesTasks" Type="TimeTrackerDbModel.Store.EmployeesTasks" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Tasks">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="EmployeesTasks">
-        <PropertyRef Name="TaskId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="fk_RoleId">
-    <End Role="webpages_Roles" Type="TimeTrackerDbModel.Store.webpages_Roles" Multiplicity="1" />
-    <End Role="webpages_UsersInRoles" Type="TimeTrackerDbModel.Store.webpages_UsersInRoles" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="webpages_Roles">
-        <PropertyRef Name="RoleId" />
-      </Principal>
-      <Dependent Role="webpages_UsersInRoles">
-        <PropertyRef Name="RoleId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_TasksStatus_Tasks">
     <End Role="Tasks" Type="TimeTrackerDbModel.Store.Tasks" Multiplicity="1" />
     <End Role="TasksStatus" Type="TimeTrackerDbModel.Store.TasksStatus" Multiplicity="0..1" />
@@ -180,15 +69,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_UserId">
-    <End Role="UserProfile" Type="TimeTrackerDbModel.Store.UserProfile" Multiplicity="1" />
-    <End Role="webpages_UsersInRoles" Type="TimeTrackerDbModel.Store.webpages_UsersInRoles" Multiplicity="*" />
+  <Association Name="FK_UsersTasks_Tasks">
+    <End Role="Tasks" Type="TimeTrackerDbModel.Store.Tasks" Multiplicity="1" />
+    <End Role="UsersTasks" Type="TimeTrackerDbModel.Store.UsersTasks" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="UserProfile">
+      <Principal Role="Tasks">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsersTasks">
+        <PropertyRef Name="TaskId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsersTasks_Users">
+    <End Role="Users" Type="TimeTrackerDbModel.Store.Users" Multiplicity="1" />
+    <End Role="UsersTasks" Type="TimeTrackerDbModel.Store.UsersTasks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
         <PropertyRef Name="UserId" />
       </Principal>
-      <Dependent Role="webpages_UsersInRoles">
-        <PropertyRef Name="UserId" />
+      <Dependent Role="UsersTasks">
+        <PropertyRef Name="UserID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

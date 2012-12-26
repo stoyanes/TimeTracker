@@ -27,7 +27,7 @@ namespace TimeTracker
 
             WebSecurity.InitializeDatabaseConnection(
                   connectionStringName: "DefaultConnection",
-                  userTableName: "UserProfile",
+                  userTableName: "Users",
                   userIdColumn: "UserId",
                   userNameColumn: "UserName",
                   autoCreateTables: true);
