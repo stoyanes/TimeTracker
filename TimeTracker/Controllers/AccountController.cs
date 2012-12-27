@@ -60,7 +60,7 @@ namespace TimeTracker.Controllers
         //
         // GET: /Account/Register
 
-        [AllowAnonymous]
+        [Authorize(Roles="Admin")]
         public ActionResult Register()
         {
             return View();
@@ -70,7 +70,7 @@ namespace TimeTracker.Controllers
         // POST: /Account/Register
 
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model)
         {
@@ -86,8 +86,10 @@ namespace TimeTracker.Controllers
                         Email = model.Email
                     }
                     );
-                    WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    // WebSecurity.Login(model.UserName, model.Password);
+                    // return RedirectToAction("Index", "Home");
+                    return RedirectToAction("RegistrationSuccess");
+
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -97,6 +99,11 @@ namespace TimeTracker.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        public ActionResult RegistrationSuccess()
+        {
+            return View();
         }
 
         //
