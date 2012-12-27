@@ -1,15 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="TimeTrackerDbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityContainer Name="TimeTrackerDbEntities" p1:LazyLoadingEnabled="true">
+  <EntityContainer Name="TimeTrackerDbEntities1" p1:LazyLoadingEnabled="true">
     <EntitySet Name="Tasks" EntityType="TimeTrackerDbModel.Task" />
-    <EntitySet Name="TasksStatus" EntityType="TimeTrackerDbModel.TasksStatus" />
+    <EntitySet Name="TasksStatus" EntityType="TimeTrackerDbModel.TasksStatu" />
     <EntitySet Name="Users" EntityType="TimeTrackerDbModel.User" />
+    <EntitySet Name="webpages_Membership" EntityType="TimeTrackerDbModel.webpages_Membership" />
+    <EntitySet Name="webpages_OAuthMembership" EntityType="TimeTrackerDbModel.webpages_OAuthMembership" />
+    <EntitySet Name="webpages_Roles" EntityType="TimeTrackerDbModel.webpages_Roles" />
     <AssociationSet Name="FK_TasksStatus_Tasks" Association="TimeTrackerDbModel.FK_TasksStatus_Tasks">
       <End Role="Tasks" EntitySet="Tasks" />
       <End Role="TasksStatus" EntitySet="TasksStatus" />
     </AssociationSet>
     <AssociationSet Name="UsersTasks" Association="TimeTrackerDbModel.UsersTasks">
       <End Role="Tasks" EntitySet="Tasks" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="webpages_UsersInRoles" Association="TimeTrackerDbModel.webpages_UsersInRoles">
+      <End Role="webpages_Roles" EntitySet="webpages_Roles" />
       <End Role="Users" EntitySet="Users" />
     </AssociationSet>
   </EntityContainer>
@@ -28,7 +35,7 @@
     <NavigationProperty Name="TasksStatu" Relationship="TimeTrackerDbModel.FK_TasksStatus_Tasks" FromRole="Tasks" ToRole="TasksStatus" />
     <NavigationProperty Name="Users" Relationship="TimeTrackerDbModel.UsersTasks" FromRole="Tasks" ToRole="Users" />
   </EntityType>
-  <EntityType Name="TasksStatus">
+  <EntityType Name="TasksStatu">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -47,10 +54,44 @@
     <Property Name="Position" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
     <Property Name="Email" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="Tasks" Relationship="TimeTrackerDbModel.UsersTasks" FromRole="Users" ToRole="Tasks" />
+    <NavigationProperty Name="webpages_Roles" Relationship="TimeTrackerDbModel.webpages_UsersInRoles" FromRole="Users" ToRole="webpages_Roles" />
+  </EntityType>
+  <EntityType Name="webpages_Membership">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="ConfirmationToken" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="IsConfirmed" Type="Boolean" />
+    <Property Name="LastPasswordFailureDate" Type="DateTime" Precision="3" />
+    <Property Name="PasswordFailuresSinceLastSuccess" Type="Int32" Nullable="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="PasswordChangedDate" Type="DateTime" Precision="3" />
+    <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="PasswordVerificationToken" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="PasswordVerificationTokenExpirationDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="webpages_OAuthMembership">
+    <Key>
+      <PropertyRef Name="Provider" />
+      <PropertyRef Name="ProviderUserId" />
+    </Key>
+    <Property Name="Provider" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+    <Property Name="ProviderUserId" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="webpages_Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Users" Relationship="TimeTrackerDbModel.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="Users" />
   </EntityType>
   <Association Name="FK_TasksStatus_Tasks">
     <End Role="Tasks" Type="TimeTrackerDbModel.Task" Multiplicity="1" />
-    <End Role="TasksStatus" Type="TimeTrackerDbModel.TasksStatus" Multiplicity="0..1" />
+    <End Role="TasksStatus" Type="TimeTrackerDbModel.TasksStatu" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="Tasks">
         <PropertyRef Name="Id" />
@@ -62,6 +103,10 @@
   </Association>
   <Association Name="UsersTasks">
     <End Role="Tasks" Type="TimeTrackerDbModel.Task" Multiplicity="*" />
+    <End Role="Users" Type="TimeTrackerDbModel.User" Multiplicity="*" />
+  </Association>
+  <Association Name="webpages_UsersInRoles">
+    <End Role="webpages_Roles" Type="TimeTrackerDbModel.webpages_Roles" Multiplicity="*" />
     <End Role="Users" Type="TimeTrackerDbModel.User" Multiplicity="*" />
   </Association>
 </Schema>

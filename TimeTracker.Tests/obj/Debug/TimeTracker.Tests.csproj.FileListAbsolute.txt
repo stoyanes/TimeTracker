@@ -46,3 +46,5 @@ c:\users\stoyan\documents\visual studio 2012\Projects\TimeTracker\TimeTracker.Te
 c:\users\stoyan\documents\visual studio 2012\Projects\TimeTracker\TimeTracker.Tests\obj\Debug\TimeTracker.Tests.csprojResolveAssemblyReference.cache
 c:\users\stoyan\documents\visual studio 2012\Projects\TimeTracker\TimeTracker.Tests\obj\Debug\TimeTracker.Tests.dll
 c:\users\stoyan\documents\visual studio 2012\Projects\TimeTracker\TimeTracker.Tests\obj\Debug\TimeTracker.Tests.pdb
+C:\Users\Stoyan\documents\visual studio 2012\Projects\TimeTracker\TimeTracker.Tests\bin\Debug\TimeTracker.DAL.dll
+C:\Users\Stoyan\documents\visual studio 2012\Projects\TimeTracker\TimeTracker.Tests\bin\Debug\TimeTracker.DAL.pdb

@@ -16,7 +16,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TasksStatus">
-      <EntityTypeMapping TypeName="TimeTrackerDbModel.TasksStatu">
+      <EntityTypeMapping TypeName="TimeTrackerDbModel.TasksStatus">
         <MappingFragment StoreEntitySet="TasksStatus">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Status" ColumnName="Status" />
