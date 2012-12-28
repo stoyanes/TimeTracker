@@ -84,8 +84,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="App_backup.Config" />
-    <None Include="packages.config" />
+    <None Include="App_backup.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="TimeTrackerDb.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TimeTrackerDb.Designer.cs</LastGenOutput>

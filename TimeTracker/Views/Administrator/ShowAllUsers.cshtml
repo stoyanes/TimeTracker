@@ -30,6 +30,7 @@
     </tr>
 
 @foreach (var item in Model) {
+    if (item != null) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.UserName)
@@ -47,11 +48,12 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit") |
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.UserId }) |*@
             @Html.ActionLink("Details", "Details", new { id=item.UserId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
         </td>
     </tr>
+}
 }
 
 </table>

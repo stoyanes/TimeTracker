@@ -17,5 +17,31 @@ namespace TimeTracker.DAL
                 return users;
             }
         }
+
+        public static User GetUserById(int id)
+        {
+            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            {
+                var user = (from usr in context.Users
+                            where usr.UserId == id
+                            select usr).FirstOrDefault<User>();
+                return user;
+            }
+        }
+
+        public static void DeleteUserById(int id)
+        {
+            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            {
+                var user = (from usr in context.Users
+                            where usr.UserId == id
+                            select usr).FirstOrDefault<User>();
+                if (user != null)
+                {
+                    context.Users.Remove(user);
+                    context.SaveChanges();
+                }
+            }
+        }
     }
 }

@@ -29,9 +29,23 @@ namespace TimeTracker.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Edit()
+        public ActionResult Edit(int id)
         {
-            return RedirectToAction("Manage", "Account");
+            // TODO tobe implemented.
+            return View();
+        }
+
+        public ActionResult Details(int id)
+        {
+            User usr = UserUtility.GetUserById(id);
+            return View(usr);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            UserUtility.DeleteUserById(id);
+
+            return View("Index");
         }
 
     }

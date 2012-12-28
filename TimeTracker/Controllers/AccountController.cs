@@ -86,9 +86,11 @@ namespace TimeTracker.Controllers
                         Email = model.Email
                     }
                     );
+
+                    
                     // WebSecurity.Login(model.UserName, model.Password);
                     // return RedirectToAction("Index", "Home");
-                    return RedirectToAction("RegistrationSuccess");
+                    return RedirectToAction("Index", "Administrator");
 
                 }
                 catch (MembershipCreateUserException e)
