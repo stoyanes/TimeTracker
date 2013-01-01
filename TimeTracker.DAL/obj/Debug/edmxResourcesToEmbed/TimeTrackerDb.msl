@@ -26,6 +26,7 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="TimeTrackerDbModel.User">
         <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />

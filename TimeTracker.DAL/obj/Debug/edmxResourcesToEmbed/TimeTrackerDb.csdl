@@ -55,6 +55,8 @@
     <Property Name="Email" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="Tasks" Relationship="TimeTrackerDbModel.UsersTasks" FromRole="Users" ToRole="Tasks" />
     <NavigationProperty Name="webpages_Roles" Relationship="TimeTrackerDbModel.webpages_UsersInRoles" FromRole="Users" ToRole="webpages_Roles" />
+    <Property Type="Boolean" Name="isDeleted" />
+    <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
   </EntityType>
   <EntityType Name="webpages_Membership">
     <Key>

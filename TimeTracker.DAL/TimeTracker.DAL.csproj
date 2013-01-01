@@ -47,65 +47,68 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Task.cs">
-      <DependentUpon>TimeTrackerDb.tt</DependentUpon>
+      <DependentUpon>TimeTrackerDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TasksStatu.cs">
-      <DependentUpon>TimeTrackerDb.tt</DependentUpon>
+      <DependentUpon>TimeTrackerDbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="TimeTrackerDb.Context.cs">
+    <Compile Include="TaskStatusUtility.cs" />
+    <Compile Include="TaskUtility.cs" />
+    <Compile Include="TimeTrackerDbModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TimeTrackerDb.Context.tt</DependentUpon>
+      <DependentUpon>TimeTrackerDbModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="TimeTrackerDb.cs">
+    <Compile Include="TimeTrackerDbModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TimeTrackerDb.tt</DependentUpon>
+      <DependentUpon>TimeTrackerDbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="TimeTrackerDb.Designer.cs">
+    <Compile Include="TimeTrackerDbModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TimeTrackerDb.edmx</DependentUpon>
+      <DependentUpon>TimeTrackerDbModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
-      <DependentUpon>TimeTrackerDb.tt</DependentUpon>
+      <DependentUpon>TimeTrackerDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="webpages_Membership.cs">
-      <DependentUpon>TimeTrackerDb.tt</DependentUpon>
+      <DependentUpon>TimeTrackerDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="webpages_OAuthMembership.cs">
-      <DependentUpon>TimeTrackerDb.tt</DependentUpon>
+      <DependentUpon>TimeTrackerDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="webpages_Roles.cs">
-      <DependentUpon>TimeTrackerDb.tt</DependentUpon>
+      <DependentUpon>TimeTrackerDbModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="App_backup1.Config" />
     <None Include="App_backup.Config">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="TimeTrackerDb.edmx">
+    <EntityDeploy Include="TimeTrackerDbModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TimeTrackerDb.Designer.cs</LastGenOutput>
+      <LastGenOutput>TimeTrackerDbModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="TimeTrackerDb.Context.tt">
+    <None Include="TimeTrackerDbModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TimeTrackerDb.edmx</DependentUpon>
-      <LastGenOutput>TimeTrackerDb.Context.cs</LastGenOutput>
+      <DependentUpon>TimeTrackerDbModel.edmx</DependentUpon>
+      <LastGenOutput>TimeTrackerDbModel.Context.cs</LastGenOutput>
     </None>
-    <None Include="TimeTrackerDb.edmx.diagram">
-      <DependentUpon>TimeTrackerDb.edmx</DependentUpon>
+    <None Include="TimeTrackerDbModel.edmx.diagram">
+      <DependentUpon>TimeTrackerDbModel.edmx</DependentUpon>
     </None>
-    <None Include="TimeTrackerDb.tt">
+    <None Include="TimeTrackerDbModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TimeTrackerDb.edmx</DependentUpon>
-      <LastGenOutput>TimeTrackerDb.cs</LastGenOutput>
+      <DependentUpon>TimeTrackerDbModel.edmx</DependentUpon>
+      <LastGenOutput>TimeTrackerDbModel.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

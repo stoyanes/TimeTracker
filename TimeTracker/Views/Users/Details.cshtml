@@ -1,0 +1,59 @@
+﻿@model TimeTracker.DAL.User
+
+@{
+    ViewBag.Title = "User details page.";
+}
+
+<h2>User details page.</h2>
+
+<fieldset>
+    <legend>User</legend>
+
+    <table>
+        <tr>
+            <td class="display-label">
+                @Html.DisplayNameFor(model => model.UserName) :
+            </td>
+            <td class="display-field">
+                @Html.DisplayFor(model => model.UserName)
+            </td>
+        </tr>
+        <tr>
+            <td class="display-label">
+                @Html.DisplayNameFor(model => model.FirstName) :
+            </td>
+            <td class="display-field">
+                @Html.DisplayFor(model => model.FirstName)
+            </td>
+        </tr>
+        <tr>
+            <td class="display-label">
+                @Html.DisplayNameFor(model => model.LastName) :
+            </td>
+            <td class="display-field">
+                @Html.DisplayFor(model => model.LastName)
+            </td>
+        </tr>
+        <tr>
+            <td class="display-label">
+                @Html.DisplayNameFor(model => model.Position) :
+            </td>
+            <td class="display-field">
+                @Html.DisplayFor(model => model.Position)
+            </td>
+        </tr>
+        <tr>
+            <td class="display-label">
+                @Html.DisplayNameFor(model => model.Email) :
+            </td>
+            <td class="display-field">
+                @Html.DisplayFor(model => model.Email)
+            </td>
+        </tr>
+    </table>
+
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.UserId }) |
+    @Html.ActionLink("To main administrator page", "Index")
+</p>

@@ -19,14 +19,7 @@ namespace TimeTracker.Models
         public DbSet<Users> UserProfiles { get; set; }
     }
 
-    //[Table("UserProfile")]
-    //public class UserProfile
-    //{
-    //    [Key]
-    //    [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-    //    public int UserId { get; set; }
-    //    public string UserName { get; set; }
-    //}
+
 
     [Table("Users")]
     public class Users
@@ -122,6 +115,7 @@ namespace TimeTracker.Models
         [Required]
         [StringLength(100, ErrorMessage = "Maximum 50 chars, minimum 2", MinimumLength = 2)]
         [DataType(DataType.EmailAddress)]
+        [EmailAddress(ErrorMessage = "Please enter valid email address.")]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }

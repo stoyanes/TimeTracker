@@ -4,7 +4,9 @@
         @if (User.Identity.Name == "admin")
         {
             @Html.ActionLink("Register new user", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
-            @Html.ActionLink("View all users", "ShowAllUsers", "Administrator")
+            @Html.ActionLink("View all users", "Active", "Users")
+            @Html.ActionLink("Create task", "Create", "Task")
+            @Html.ActionLink("View all tasks", "Active", "Task")
             
         }
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {

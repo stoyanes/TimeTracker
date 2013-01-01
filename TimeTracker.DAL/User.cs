@@ -26,6 +26,7 @@ namespace TimeTracker.DAL
         public string LastName { get; set; }
         public string Position { get; set; }
         public string Email { get; set; }
+        public bool IsDeleted { get; set; }
     
         public virtual ICollection<Task> Tasks { get; set; }
         public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }

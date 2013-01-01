@@ -10,6 +10,7 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using TimeTracker.Filters;
 using TimeTracker.Models;
+using TimeTracker.DAL;
 
 namespace TimeTracker.Controllers
 {
@@ -35,7 +36,7 @@ namespace TimeTracker.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            if (ModelState.IsValid && UserUtility.IsUserActive(model.UserName) && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
                 return RedirectToLocal(returnUrl);
             }

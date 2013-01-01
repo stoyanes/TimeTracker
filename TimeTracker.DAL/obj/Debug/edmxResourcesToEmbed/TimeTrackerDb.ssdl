@@ -60,6 +60,7 @@
     <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="100" />
     <Property Name="Position" Type="nvarchar" Nullable="false" MaxLength="100" />
     <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="UsersTasks">
     <Key>

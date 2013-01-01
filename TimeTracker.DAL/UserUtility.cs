@@ -8,11 +8,12 @@ namespace TimeTracker.DAL
 {
     public static class UserUtility
     {
-        public static List<User> GetAllUsers()
+        public static List<User> GetAllActiveUsers()
         {
             using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
             {
                 var users = (from usr in context.Users
+                             where usr.IsDeleted == false
                              select usr).ToList<User>();
                 return users;
             }
@@ -29,6 +30,19 @@ namespace TimeTracker.DAL
             }
         }
 
+        public static bool IsUserActive(string userName)
+        {
+            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            {
+                var user = (from usr in context.Users
+                        where usr.UserName == userName
+                        select usr).FirstOrDefault<User>();
+                if (user.IsDeleted == true)
+                    return false;
+            }
+            return true;
+        }
+
         public static void DeleteUserById(int id)
         {
             using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
@@ -38,7 +52,7 @@ namespace TimeTracker.DAL
                             select usr).FirstOrDefault<User>();
                 if (user != null)
                 {
-                    context.Users.Remove(user);
+                    user.IsDeleted = true;
                     context.SaveChanges();
                 }
             }

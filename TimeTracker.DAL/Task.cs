@@ -27,8 +27,8 @@ namespace TimeTracker.DAL
         public int WorkedHoursCurrent { get; set; }
         public Nullable<int> WorkedHoursAll { get; set; }
         public int StatusId { get; set; }
+        public bool IsDeleted { get; set; }
     
-        public virtual TasksStatu TasksStatu { get; set; }
         public virtual ICollection<User> Users { get; set; }
     }
 }

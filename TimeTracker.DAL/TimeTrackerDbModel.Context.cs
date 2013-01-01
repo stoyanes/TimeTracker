@@ -13,10 +13,10 @@ namespace TimeTracker.DAL
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TimeTrackerDbEntities : DbContext
+    public partial class TimeTrackerDbEntities1 : DbContext
     {
-        public TimeTrackerDbEntities()
-            : base("name=TimeTrackerDbEntities")
+        public TimeTrackerDbEntities1()
+            : base("name=TimeTrackerDbEntities1")
         {
         }
     
@@ -28,5 +28,8 @@ namespace TimeTracker.DAL
         public DbSet<Task> Tasks { get; set; }
         public DbSet<TasksStatu> TasksStatus { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<webpages_Membership> webpages_Membership { get; set; }
+        public DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
+        public DbSet<webpages_Roles> webpages_Roles { get; set; }
     }
 }

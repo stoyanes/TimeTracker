@@ -16,7 +16,5 @@ namespace TimeTracker.DAL
     {
         public int Id { get; set; }
         public string Status { get; set; }
-    
-        public virtual Task Task { get; set; }
     }
 }
