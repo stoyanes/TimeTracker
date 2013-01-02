@@ -15,6 +15,16 @@ namespace TimeTracker.Models
         public string  Position { get; set; }
         public string  Email { get; set; }
 
+        public UserViewModel()
+        {
+            UserId = 0;
+            UserName = null;
+            FirstName = null;
+            LastName = null;
+            Position = null;
+            Email = null;
+        }
+
         public UserViewModel(int id, string un, string fn, string ln, string pos, string e)
         {
             UserId = id;

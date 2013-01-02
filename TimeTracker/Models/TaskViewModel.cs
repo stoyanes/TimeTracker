@@ -16,7 +16,7 @@ namespace TimeTracker.Models
         public int StatusId { get; set; }
         public string StatusMess { get; set; }
 
-        public TaskViewModel(Task task, string statusMess)
+        public TaskViewModel(Task task, string statusMess = null)
         {
             Id = task.Id;
             Title = task.Title;

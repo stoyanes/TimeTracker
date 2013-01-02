@@ -52,5 +52,36 @@ namespace TimeTracker.DAL
                 return resultTask;
             }
         }
+
+        public static void DeleteTaskById(int id)
+        {
+            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            {
+                var taskResult = GetTaskById(id);
+                context.Tasks.Attach(taskResult);
+                if (taskResult != null)
+                {
+                    taskResult.IsDeleted = true;
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public static void UpdateTask(int id, string t, string d, int si, DateTime? sd = null)
+        {
+            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            {
+                var taskResult = GetTaskById(id);
+                context.Tasks.Attach(taskResult);
+                if (taskResult != null)
+                {
+                    taskResult.Title = t;
+                    taskResult.Description = d;
+                    taskResult.StatusId = si;
+                    taskResult.StartDate = sd;
+                    context.SaveChanges();
+                }
+            }
+        }
     }
 }

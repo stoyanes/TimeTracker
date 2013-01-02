@@ -47,12 +47,29 @@ namespace TimeTracker.DAL
         {
             using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
             {
-                var user = (from usr in context.Users
-                            where usr.UserId == id
-                            select usr).FirstOrDefault<User>();
+                var user = GetUserById(id);
+                context.Users.Attach(user);
                 if (user != null)
                 {
                     user.IsDeleted = true;
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public static void UpdateUser(int id, string un, string fn, string ln, string p, string e)
+        {
+            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            {
+                var user = GetUserById(id);
+                context.Users.Attach(user);
+                if (user != null)
+                {
+                    user.UserName = un;
+                    user.FirstName = fn;
+                    user.LastName = ln;
+                    user.Position = p;
+                    user.Email = e;
                     context.SaveChanges();
                 }
             }

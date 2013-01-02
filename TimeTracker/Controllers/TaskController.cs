@@ -24,7 +24,9 @@ namespace TimeTracker.Controllers
         public ActionResult Details(int id)
         {
             Task task = TaskUtility.GetTaskById(id);
-            return View();
+            string message = TaskStatusUtility.GetStatMessById(task.StatusId);
+            TaskViewModel taskViewModel = new TaskViewModel(task, message);
+            return View(taskViewModel);
         }
 
         //
@@ -67,7 +69,9 @@ namespace TimeTracker.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            Task task = TaskUtility.GetTaskById(id);
+            TaskViewModel taskViewModel = new TaskViewModel(task);
+            return View(taskViewModel);
         }
 
         //
@@ -79,7 +83,14 @@ namespace TimeTracker.Controllers
             try
             {
                 // TODO: Add update logic here
+                TaskModel task = new TaskModel();
+                task.Title = collection["Title"];
+                task.Description = collection["Description"];
+                task.StatusId = int.Parse(collection["StatusId"]);
+                if (collection["StartDate"] != null)
+                    task.StartDate = DateTime.Parse(collection["StartDate"]);
 
+                TaskUtility.UpdateTask(id, task.Title, task.Description, task.StatusId, task.StartDate);
 
                 return RedirectToAction("Index");
             }
@@ -94,7 +105,8 @@ namespace TimeTracker.Controllers
 
         public ActionResult Delete(int id)
         {
-            return View();
+            TaskUtility.DeleteTaskById(id);
+            return View("Index");
         }
 
         //
@@ -122,7 +134,7 @@ namespace TimeTracker.Controllers
             string message = null;
             foreach (Task item in tasks)
             {
-                message = TaskStatusUtility.GetStatMessById(item.Id);
+                message = TaskStatusUtility.GetStatMessById(item.StatusId);
                 viewModel.Add(new TaskViewModel(item, message));
             }
             return View(viewModel);

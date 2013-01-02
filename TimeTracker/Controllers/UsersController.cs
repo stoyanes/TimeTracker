@@ -26,10 +26,40 @@ namespace TimeTracker.Controllers
             return View(viewModel);
         }
 
+        //
+        // GET: /Task/Edit/5
+
         public ActionResult Edit(int id)
         {
-            // TODO tobe implemented.
-            return View();
+            User user = UserUtility.GetUserById(id);
+            UserViewModel userViewModel = new UserViewModel(user);
+            return View(userViewModel);
+        }
+
+        //
+        // POST: /Task/Edit/5
+
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            try
+            {
+
+
+                UserViewModel user = new UserViewModel();
+                user.UserName = collection["UserName"];
+                user.FirstName = collection["FirstName"];
+                user.LastName = collection["LastName"];
+                user.Position = collection["Position"];
+                user.Email = collection["Email"];
+
+                UserUtility.UpdateUser(id, user.UserName, user.FirstName, user.LastName, user.Position, user.Email);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         public ActionResult Details(int id)
