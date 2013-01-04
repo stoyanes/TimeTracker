@@ -75,9 +75,9 @@ namespace TimeTracker.Controllers
             return View("Index");
         }
 
-        public ActionResult Tasks(string userName)
+        public ActionResult Tasks(string id)
         {
-            List<Task> taskList = UserUtility.GetAllUserTasks(userName);
+            List<Task> taskList = UserUtility.GetAllUserTasks(id);
 
             return View(taskList);
         }

@@ -10,7 +10,7 @@ namespace TimeTracker.DAL
     {
         public static string GetStatMessById(int id)
         {
-            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
             {
                 var mess = (from taskStat in context.TasksStatus
                             where taskStat.Id == id

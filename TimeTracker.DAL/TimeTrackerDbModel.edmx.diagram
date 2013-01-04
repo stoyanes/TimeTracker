@@ -4,15 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="765663704e48427194cd2bf53983d6de" Name="Diagram1">
-        <EntityTypeShape EntityType="TimeTrackerDbModel.Task" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="661db60312a8409ba0bc0142520d1936" Name="Diagram1">
+        <EntityTypeShape EntityType="TimeTrackerDbModel.Task" Width="1.5" PointX="0.5" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TimeTrackerDbModel.TasksStatu" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TimeTrackerDbModel.User" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TimeTrackerDbModel.webpages_Membership" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TimeTrackerDbModel.webpages_OAuthMembership" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TimeTrackerDbModel.webpages_Roles" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
-        <AssociationConnector Association="TimeTrackerDbModel.UsersTasks" ManuallyRouted="false" />
-        <AssociationConnector Association="TimeTrackerDbModel.webpages_UsersInRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TimeTrackerDbModel.User" Width="1.5" PointX="5.625" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TimeTrackerDbModel.UsersTask" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="TimeTrackerDbModel.FK_UsersTasks_Tasks" ManuallyRouted="false" />
+        <AssociationConnector Association="TimeTrackerDbModel.FK_UsersTasks_Users" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -8,16 +8,19 @@ namespace TimeTracker.DAL
 {
     public static class UserTasksUtility
     {
-        public static List<Task> GetAllUserTasks(string userName)
+        public static void AddTaskToUser(int userId, int taskId, DateTime? startDate = null, int? workedHours = null, DateTime? endDate = null)
         {
-            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
             {
-                var tasks = (from task in context.Tasks
-                             where task.Users.Any(name => name.UserName == userName)
-                             select task).ToList();
+                UsersTask usrTask = new UsersTask();
+                usrTask.UserID = userId;
+                usrTask.TaskId = taskId;
+                usrTask.StartDate = startDate;
+                usrTask.WorkedHours = workedHours;
+                usrTask.EndDate = endDate;
 
-                return tasks;
-                            
+                context.UsersTasks.Add(usrTask);
+                context.SaveChanges();
             }
         }
     }

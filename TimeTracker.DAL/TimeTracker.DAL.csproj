@@ -72,21 +72,16 @@
     <Compile Include="User.cs">
       <DependentUpon>TimeTrackerDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UsersTask.cs">
+      <DependentUpon>TimeTrackerDbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserTasksUtility.cs" />
     <Compile Include="UserUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="webpages_Membership.cs">
-      <DependentUpon>TimeTrackerDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="webpages_OAuthMembership.cs">
-      <DependentUpon>TimeTrackerDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="webpages_Roles.cs">
-      <DependentUpon>TimeTrackerDbModel.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="App_backup2.Config" />
     <None Include="App_backup1.Config" />
     <None Include="App_backup.Config">
       <SubType>Designer</SubType>

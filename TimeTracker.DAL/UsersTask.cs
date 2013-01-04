@@ -12,23 +12,15 @@ namespace TimeTracker.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Task
+    public partial class UsersTask
     {
-        public Task()
-        {
-            this.UsersTasks = new HashSet<UsersTask>();
-        }
-    
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public int UserID { get; set; }
+        public int TaskId { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
+        public Nullable<double> WorkedHours { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
-        public int WorkedHoursCurrent { get; set; }
-        public Nullable<int> WorkedHoursAll { get; set; }
-        public int StatusId { get; set; }
-        public bool IsDeleted { get; set; }
     
-        public virtual ICollection<UsersTask> UsersTasks { get; set; }
+        public virtual Task Task { get; set; }
+        public virtual User User { get; set; }
     }
 }

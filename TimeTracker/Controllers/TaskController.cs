@@ -72,6 +72,8 @@ namespace TimeTracker.Controllers
         {
             Task task = TaskUtility.GetTaskById(id);
             TaskViewModel taskViewModel = new TaskViewModel(task);
+            List<User> usrList = UserUtility.GetAllActiveUsers();
+            ViewBag.users = usrList;
             return View(taskViewModel);
         }
 
@@ -90,8 +92,11 @@ namespace TimeTracker.Controllers
                 task.StatusId = int.Parse(collection["StatusId"]);
                 if (collection["StartDate"] != null)
                     task.StartDate = DateTime.Parse(collection["StartDate"]);
+                int taskToUser = int.Parse(collection["TaskToUser"]);
 
                 TaskUtility.UpdateTask(id, task.Title, task.Description, task.StatusId, task.StartDate);
+
+                UserTasksUtility.AddTaskToUser(taskToUser, id);
 
                 return RedirectToAction("Index");
             }

@@ -10,7 +10,7 @@ namespace TimeTracker.DAL
     {
         public static List<User> GetAllActiveUsers()
         {
-            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
             {
                 var users = (from usr in context.Users
                              where usr.IsDeleted == false
@@ -21,7 +21,7 @@ namespace TimeTracker.DAL
 
         public static User GetUserById(int id)
         {
-            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
             {
                 var user = (from usr in context.Users
                             where usr.UserId == id
@@ -32,7 +32,7 @@ namespace TimeTracker.DAL
 
         public static bool IsUserActive(string userName)
         {
-            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
             {
                 var user = (from usr in context.Users
                         where usr.UserName == userName
@@ -45,7 +45,7 @@ namespace TimeTracker.DAL
 
         public static void DeleteUserById(int id)
         {
-            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
             {
                 var user = GetUserById(id);
                 context.Users.Attach(user);
@@ -59,7 +59,7 @@ namespace TimeTracker.DAL
 
         public static void UpdateUser(int id, string un, string fn, string ln, string p, string e)
         {
-            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
             {
                 var user = GetUserById(id);
                 context.Users.Attach(user);
@@ -75,15 +75,31 @@ namespace TimeTracker.DAL
             }
         }
 
-        public static List<Task> GetAllUserTasks(string userName)
+        public static User GetUserByName(string userName)
         {
-            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
             {
-                var tasks = (from task in context.Tasks
-                             where task.Users.All(name => name.UserName == userName)
-                             select task).ToList();
+                var userRes = (from usr in context.Users
+                               where usr.UserName == userName
+                               select usr).FirstOrDefault<User>();
+                return userRes;
+            }
 
-                return tasks;
+        }
+
+        public static List<Task> GetAllUserTasks(string id)
+        {
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
+            {
+                User user = GetUserByName(id);
+                context.Users.Attach(user);
+                if (user != null)
+                {
+                    var tasks = user.UsersTasks.Select(u => u.Task);
+                    return tasks.ToList();
+                }
+                else
+                    throw new Exception("Error!");
 
             }
         }

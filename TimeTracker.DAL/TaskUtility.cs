@@ -10,7 +10,7 @@ namespace TimeTracker.DAL
     {
         public static void CreateTask(Task task)
         {
-            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
             {
                 context.Tasks.Add(task);
                 context.SaveChanges();
@@ -18,7 +18,7 @@ namespace TimeTracker.DAL
         }
         public static void CreateTask(string t, string d, int s, DateTime? sd = null, DateTime? ed = null)
         {
-            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
             {
                 Task task = new Task();
                 task.Title = t;
@@ -33,7 +33,7 @@ namespace TimeTracker.DAL
 
         public static List<Task> GetAllActiveTasks()
         {
-            using (TimeTrackerDbEntities1  context = new TimeTrackerDbEntities1())
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
             {
                 var tasks = (from task in context.Tasks
                              where task.IsDeleted == false
@@ -44,7 +44,7 @@ namespace TimeTracker.DAL
 
         public static Task GetTaskById(int id)
         {
-            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
             {
                 var resultTask = (from task in context.Tasks
                                   where task.Id == id
@@ -55,7 +55,7 @@ namespace TimeTracker.DAL
 
         public static void DeleteTaskById(int id)
         {
-            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
             {
                 var taskResult = GetTaskById(id);
                 context.Tasks.Attach(taskResult);
@@ -69,7 +69,7 @@ namespace TimeTracker.DAL
 
         public static void UpdateTask(int id, string t, string d, int si, DateTime? sd = null)
         {
-            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
             {
                 var taskResult = GetTaskById(id);
                 context.Tasks.Attach(taskResult);

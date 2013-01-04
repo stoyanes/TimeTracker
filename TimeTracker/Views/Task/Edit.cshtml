@@ -55,7 +55,12 @@
                 ))  
         </div>
 
-
+        <div class="editor-label">
+            <label for="UserId">User to work on it</label>
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("TaskToUser", new SelectList(ViewBag.users, "UserId", "UserName"))
+        </div>
         <p>
             <input type="submit" value="Save" />
         </p>

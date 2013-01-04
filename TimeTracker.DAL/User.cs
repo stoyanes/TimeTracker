@@ -16,8 +16,7 @@ namespace TimeTracker.DAL
     {
         public User()
         {
-            this.Tasks = new HashSet<Task>();
-            this.webpages_Roles = new HashSet<webpages_Roles>();
+            this.UsersTasks = new HashSet<UsersTask>();
         }
     
         public int UserId { get; set; }
@@ -28,7 +27,6 @@ namespace TimeTracker.DAL
         public string Email { get; set; }
         public bool IsDeleted { get; set; }
     
-        public virtual ICollection<Task> Tasks { get; set; }
-        public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
+        public virtual ICollection<UsersTask> UsersTasks { get; set; }
     }
 }
