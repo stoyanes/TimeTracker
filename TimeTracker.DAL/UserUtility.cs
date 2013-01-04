@@ -74,5 +74,18 @@ namespace TimeTracker.DAL
                 }
             }
         }
+
+        public static List<Task> GetAllUserTasks(string userName)
+        {
+            using (TimeTrackerDbEntities1 context = new TimeTrackerDbEntities1())
+            {
+                var tasks = (from task in context.Tasks
+                             where task.Users.All(name => name.UserName == userName)
+                             select task).ToList();
+
+                return tasks;
+
+            }
+        }
     }
 }

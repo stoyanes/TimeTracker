@@ -59,7 +59,5 @@ namespace TimeTracker.Models
             Description = "Some description";
             StatusId = 0;
         }
-
-
     }
 }

@@ -72,6 +72,7 @@
     <Compile Include="User.cs">
       <DependentUpon>TimeTrackerDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserTasksUtility.cs" />
     <Compile Include="UserUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="webpages_Membership.cs">

@@ -15,6 +15,7 @@ namespace TimeTracker.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.UserName = User.Identity.Name;
             return View();
         }
 
