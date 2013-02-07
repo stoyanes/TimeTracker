@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using TimeTracker.DAL;
 using TimeTracker.Models;
@@ -45,7 +44,6 @@ namespace TimeTracker.Controllers
             try
             {
 
-
                 UserViewModel user = new UserViewModel();
                 user.UserName = collection["UserName"];
                 user.FirstName = collection["FirstName"];
@@ -75,6 +73,7 @@ namespace TimeTracker.Controllers
             return View("Index");
         }
 
+        
         public ActionResult Tasks(string id)
         {
             List<Task> taskList = UserUtility.GetAllUserTasks(id);

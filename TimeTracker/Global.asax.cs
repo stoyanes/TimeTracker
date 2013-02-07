@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using WebMatrix.WebData;
+using System.Web.Security;
 
 namespace TimeTracker
 {
@@ -31,6 +32,8 @@ namespace TimeTracker
                   userIdColumn: "UserId",
                   userNameColumn: "UserName",
                   autoCreateTables: true);
+            
+            
         }
     }
 }

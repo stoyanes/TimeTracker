@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using TimeTracker.DAL;
 using TimeTracker.Models;
@@ -144,6 +143,20 @@ namespace TimeTracker.Controllers
                 viewModel.Add(new TaskViewModel(item, message));
             }
             return View(viewModel);
+        }
+
+        public ActionResult Current()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                List<UsersTask> userTasks = UserTasksUtility.GetAllUserTasks(User.Identity.Name);
+                
+                return View(userTasks);
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

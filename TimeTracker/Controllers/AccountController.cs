@@ -78,6 +78,7 @@ namespace TimeTracker.Controllers
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
+             
                 try
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new {
@@ -87,11 +88,20 @@ namespace TimeTracker.Controllers
                         Email = model.Email
                     }
                     );
+                    if (!Roles.RoleExists("RegularUser"))
+                    {
+                        Roles.CreateRole("RegularUser");
+                        Roles.AddUserToRole(model.UserName, "RegularUser");
+                    }
+                    else
+                    {
+                        Roles.AddUserToRole(model.UserName, "RegularUser");
+                    }
 
                     
                     // WebSecurity.Login(model.UserName, model.Password);
                     // return RedirectToAction("Index", "Home");
-                    return RedirectToAction("Index", "Administrator");
+                    return RedirectToAction("Index", "Home");
 
                 }
                 catch (MembershipCreateUserException e)

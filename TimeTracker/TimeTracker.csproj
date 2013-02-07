@@ -165,7 +165,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Controllers\UserTasksController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -299,6 +298,7 @@
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Tasks.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Task\Current.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
