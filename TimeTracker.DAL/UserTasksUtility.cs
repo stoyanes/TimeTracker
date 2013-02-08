@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace TimeTracker.DAL
 {
@@ -35,6 +34,25 @@ namespace TimeTracker.DAL
                 return UserTasks;
 
                 
+            }
+        }
+
+        public static void UpdateUserWorkingHoursOnTask(int usrId, int tskId, double hours)
+        {
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
+            {
+                UsersTask usrTask = new UsersTask();
+                usrTask = (from usrTsk in context.UsersTasks
+                           where usrTsk.TaskId == tskId && usrTsk.UserID == usrTsk.UserID
+                           select usrTsk).FirstOrDefault<UsersTask>();
+                context.UsersTasks.Attach(usrTask);
+                if (usrTask.WorkedHours == null)
+                {
+                    usrTask.WorkedHours = 0;
+                }
+                if (hours > 0)
+                    usrTask.WorkedHours += hours;
+                context.SaveChanges();
             }
         }
     }

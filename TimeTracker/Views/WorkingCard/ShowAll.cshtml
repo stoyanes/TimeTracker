@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TimeTracker.DAL.WorkingCard>
+
+@{
+    ViewBag.Title = "ShowAll";
+}
+
+<h2>Show All working tasks for @User.Identity.Name</h2>
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkingHours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkingHours)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<JustCodeSettings Version="0.0" Timestamp="9fcf5539-3be1-4013-a198-d5c60d8221f1">
+  <IgnoredErrorsAndWarningsSettings xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+    <IgnoredErrorsAndWarnings>
+      <FilePath>
+        <Path>C:\Users\Stoyan\Documents\Visual Studio 2012\Projects\TimeTracker\TimeTracker\Controllers\WorkingCardController.cs</Path>
+        <ProjectFullName>C:\Users\Stoyan\Documents\Visual Studio 2012\Projects\TimeTracker\TimeTracker\TimeTracker.csproj</ProjectFullName>
+        <IgnoredElement>
+          <Column>41</Column>
+          <Text>Unused Parameter &lt;/C&gt;id&lt;//C&gt;</Text>
+          <Line>22</Line>
+        </IgnoredElement>
+        <IgnoredElement>
+          <Column>51</Column>
+          <Text>Unused Parameter &lt;/C&gt;collection&lt;//C&gt;</Text>
+          <Line>39</Line>
+        </IgnoredElement>
+        <IgnoredElement>
+          <Column>38</Column>
+          <Text>Unused Parameter &lt;/C&gt;id&lt;//C&gt;</Text>
+          <Line>56</Line>
+        </IgnoredElement>
+        <IgnoredElement>
+          <Column>38</Column>
+          <Text>Unused Parameter &lt;/C&gt;id&lt;//C&gt;</Text>
+          <Line>65</Line>
+        </IgnoredElement>
+        <IgnoredElement>
+          <Column>57</Column>
+          <Text>Unused Parameter &lt;/C&gt;collection&lt;//C&gt;</Text>
+          <Line>65</Line>
+        </IgnoredElement>
+        <IgnoredElement>
+          <Column>40</Column>
+          <Text>Unused Parameter &lt;/C&gt;id&lt;//C&gt;</Text>
+          <Line>82</Line>
+        </IgnoredElement>
+        <IgnoredElement>
+          <Column>40</Column>
+          <Text>Unused Parameter &lt;/C&gt;id&lt;//C&gt;</Text>
+          <Line>91</Line>
+        </IgnoredElement>
+        <IgnoredElement>
+          <Column>59</Column>
+          <Text>Unused Parameter &lt;/C&gt;collection&lt;//C&gt;</Text>
+          <Line>91</Line>
+        </IgnoredElement>
+        <IgnoredElement>
+          <Column>49</Column>
+          <Text>Unused Parameter &lt;/C&gt;id&lt;//C&gt;</Text>
+          <Line>112</Line>
+        </IgnoredElement>
+      </FilePath>
+    </IgnoredErrorsAndWarnings>
+  </IgnoredErrorsAndWarningsSettings>
+</JustCodeSettings>

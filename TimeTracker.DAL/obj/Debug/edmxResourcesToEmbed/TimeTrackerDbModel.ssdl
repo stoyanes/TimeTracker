@@ -5,6 +5,7 @@
     <EntitySet Name="TasksStatus" EntityType="TimeTrackerDbModel.Store.TasksStatus" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users" EntityType="TimeTrackerDbModel.Store.Users" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UsersTasks" EntityType="TimeTrackerDbModel.Store.UsersTasks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WorkingCard" EntityType="TimeTrackerDbModel.Store.WorkingCard" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_UsersTasks_Tasks" Association="TimeTrackerDbModel.Store.FK_UsersTasks_Tasks">
       <End Role="Tasks" EntitySet="Tasks" />
       <End Role="UsersTasks" EntitySet="UsersTasks" />
@@ -57,6 +58,18 @@
     <Property Name="StartDate" Type="date" />
     <Property Name="WorkedHours" Type="float" />
     <Property Name="EndDate" Type="date" />
+  </EntityType>
+  <EntityType Name="WorkingCard">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="TaskId" Type="int" Nullable="false" />
+    <Property Name="StartDate" Type="date" Nullable="false" />
+    <Property Name="WorkingHours" Type="time" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="500" />
+    <Property Name="IsFilled" Type="bit" />
   </EntityType>
   <Association Name="FK_UsersTasks_Tasks">
     <End Role="Tasks" Type="TimeTrackerDbModel.Store.Tasks" Multiplicity="1" />

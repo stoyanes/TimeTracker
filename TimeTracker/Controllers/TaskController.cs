@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using TimeTracker.DAL;
@@ -84,7 +85,6 @@ namespace TimeTracker.Controllers
         {
             try
             {
-                // TODO: Add update logic here
                 TaskModel task = new TaskModel();
                 task.Title = collection["Title"];
                 task.Description = collection["Description"];
@@ -95,6 +95,7 @@ namespace TimeTracker.Controllers
 
                 TaskUtility.UpdateTask(id, task.Title, task.Description, task.StatusId, task.StartDate);
 
+                // Adding a User to a specified task
                 UserTasksUtility.AddTaskToUser(taskToUser, id);
 
                 return RedirectToAction("Index");
@@ -145,12 +146,13 @@ namespace TimeTracker.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Admin, RegularUser")]
         public ActionResult Current()
         {
             if (User.Identity.IsAuthenticated)
             {
                 List<UsersTask> userTasks = UserTasksUtility.GetAllUserTasks(User.Identity.Name);
-                
+
                 return View(userTasks);
             }
             else
@@ -158,5 +160,7 @@ namespace TimeTracker.Controllers
                 return View();
             }
         }
+
+        
     }
 }

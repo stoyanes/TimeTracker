@@ -29,5 +29,6 @@ namespace TimeTracker.DAL
         public DbSet<TasksStatu> TasksStatus { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UsersTask> UsersTasks { get; set; }
+        public DbSet<WorkingCard> WorkingCard { get; set; }
     }
 }

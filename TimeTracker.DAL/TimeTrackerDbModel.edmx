@@ -4,12 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TimeTrackerDbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TimeTrackerDbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="TimeTrackerDbModelStoreContainer">
           <EntitySet Name="Tasks" EntityType="TimeTrackerDbModel.Store.Tasks" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TasksStatus" EntityType="TimeTrackerDbModel.Store.TasksStatus" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="TimeTrackerDbModel.Store.Users" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UsersTasks" EntityType="TimeTrackerDbModel.Store.UsersTasks" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WorkingCard" EntityType="TimeTrackerDbModel.Store.WorkingCard" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_UsersTasks_Tasks" Association="TimeTrackerDbModel.Store.FK_UsersTasks_Tasks">
             <End Role="Tasks" EntitySet="Tasks" />
             <End Role="UsersTasks" EntitySet="UsersTasks" />
@@ -63,6 +64,18 @@
           <Property Name="WorkedHours" Type="float" />
           <Property Name="EndDate" Type="date" />
         </EntityType>
+        <EntityType Name="WorkingCard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="TaskId" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="WorkingHours" Type="time" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="IsFilled" Type="bit" />
+        </EntityType>
         <Association Name="FK_UsersTasks_Tasks">
           <End Role="Tasks" Type="TimeTrackerDbModel.Store.Tasks" Multiplicity="1" />
           <End Role="UsersTasks" Type="TimeTrackerDbModel.Store.UsersTasks" Multiplicity="*" />
@@ -87,8 +100,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TimeTrackerDbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -105,6 +117,7 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="UsersTasks" EntitySet="UsersTasks" />
           </AssociationSet>
+          <EntitySet Name="WorkingCard" EntityType="TimeTrackerDbModel.WorkingCard" />
         </EntityContainer>
         <EntityType Name="Task">
           <Key>
@@ -178,6 +191,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="WorkingCard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="TaskId" Nullable="false" />
+          <Property Type="DateTime" Name="StartDate" Nullable="false" Precision="0" />
+          <Property Type="Time" Name="WorkingHours" Nullable="false" Precision="7" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsFilled" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -228,6 +253,19 @@
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="WorkedHours" ColumnName="WorkedHours" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkingCard">
+            <EntityTypeMapping TypeName="TimeTrackerDbModel.WorkingCard">
+              <MappingFragment StoreEntitySet="WorkingCard">
+                <ScalarProperty Name="IsFilled" ColumnName="IsFilled" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="WorkingHours" ColumnName="WorkingHours" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -48,5 +48,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="WorkingCard">
+      <EntityTypeMapping TypeName="TimeTrackerDbModel.WorkingCard">
+        <MappingFragment StoreEntitySet="WorkingCard">
+          <ScalarProperty Name="IsFilled" ColumnName="IsFilled" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="WorkingHours" ColumnName="WorkingHours" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

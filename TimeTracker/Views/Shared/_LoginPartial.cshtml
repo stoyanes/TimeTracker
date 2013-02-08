@@ -7,11 +7,12 @@
             @Html.ActionLink("View all users", "Active", "Users")
             @Html.ActionLink("Create task", "Create", "Task")
             @Html.ActionLink("View all tasks", "Active", "Task")
-            
+            @Html.ActionLink("Current tasks", "Current", "Task")
         }
         @if (Roles.IsUserInRole(User.Identity.Name, "RegularUser"))
         {
             // some logic for regular users
+            @Html.ActionLink("Current tasks", "Current", "Task")
         }
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
             @Html.AntiForgeryToken()

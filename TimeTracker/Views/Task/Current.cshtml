@@ -5,10 +5,7 @@
 }
 
 <h2>Current tasks for @User.Identity.Name</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<br />
 <table>
     <tr>
         <th>
@@ -76,9 +73,9 @@
             }          
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
-        </td>
+            @Html.ActionLink("Fill working card", "FillWorkingCard", "WorkingCard", new {id = item.TaskId }, null)
+            
+        </td> 
     </tr>
 }
 
