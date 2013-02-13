@@ -4,9 +4,13 @@
     ViewBag.Title = "Edit";
 }
 
+
 <h2>Edit</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+
+{
+    
     @Html.ValidationSummary(true)
 
     <fieldset>
@@ -34,8 +38,16 @@
             @Html.LabelFor(model => model.StartDate)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.StartDate)
-            @Html.ValidationMessageFor(model => model.StartDate)
+            @if (Model.StartDate.HasValue)
+            {
+                @Html.EditorFor(model => model.StartDate.Value);
+                @Html.ValidationMessageFor(model => model.StartDate)
+            }
+            else
+            {
+                @Html.EditorFor(model => model.StartDate);
+                @Html.ValidationMessageFor(model => model.StartDate);
+            }
         </div>
 
         <div class="editor-label">
@@ -52,7 +64,7 @@
                 },
                 "value",
                 "text"
-                ))  
+                ))
         </div>
 
         <div class="editor-label">
@@ -60,6 +72,7 @@
         </div>
         <div class="editor-field">
             @Html.DropDownList("TaskToUser", new SelectList(ViewBag.users, "UserId", "UserName"))
+            @Html.
         </div>
         <p>
             <input type="submit" value="Save" />
@@ -70,6 +83,21 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<style scoped>
+    #example h2 {
+        font-weight: normal;
+    }
+    #email-settings {
+        height: 135px;
+        width: 395px;
+        margin: 30px auto;
+        padding: 110px 0 0 30px;
+        background: url('@Url.Content("~/Content/web/datepicker/mailSettings.png")') transparent no-repeat 0 0;
+    }
+    
+</style>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

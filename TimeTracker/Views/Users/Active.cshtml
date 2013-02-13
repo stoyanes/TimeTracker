@@ -6,7 +6,27 @@
 
 <h2>List of all users current in the system.</h2>
 
-<p>
+
+@(Html.Kendo().Grid(Model)
+    .Name("ActiveUsers")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.UserName);
+        columns.Bound(p => p.FirstName);
+        columns.Bound(p => p.LastName).Title("Last name");
+        columns.Bound(p => p.Position).Title("Position");
+        columns.Bound(p => p.Email);
+        columns.Template(o => Html.ActionLink("Edit", "Edit", "Users", new {id = o.UserId }, null));
+        columns.Template(o => Html.ActionLink("Details", "Details", "Users", new { id = o.UserId }, null));
+        columns.Template(o => Html.ActionLink("Delete", "Delete", "Users", new { id = o.UserId }, null));
+        
+    })
+    .Sortable()
+    .Pageable()
+)
+
+
+@*<p>
     @Html.ActionLink("Create New", "Register", "Account")
 </p>
 <table>
@@ -56,4 +76,4 @@
 }
 }
 
-</table>
+</table>*@

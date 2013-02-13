@@ -1,0 +1,31 @@
+﻿@model IEnumerable<TimeTracker.DAL.User>
+
+@{
+    ViewBag.Title = "AddUserToTask";
+}
+
+<h2>Add user to task: @ViewBag.TaskTitle</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+    @(Html.Kendo().Grid(Model)
+    .Name("ShowUsersToTask")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.UserName);
+        columns.Bound(p => p.FirstName);
+        columns.Bound(p => p.LastName);
+        columns.Bound(p => p.Position);
+        columns.Bound(p => p.Email);
+        //columns.Template(o => Html.ActionLink("Details", "Details", "Task", new {id = o.Id }, null));
+        // columns.Template(o => Html.ActionLink("Edit", "Edit", "Task", new { id = o.Id }, null));
+        columns.Template(o => Html.ActionLink("Add", "AddUserToTask", "Task", new {userId = o.UserId, taskId = ViewBag.TaskId}, null));
+    })
+    .Sortable()
+    .Pageable()
+)   
+}

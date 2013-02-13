@@ -49,3 +49,17 @@ c:\users\stoyan\documents\visual studio 2012\Projects\TimeTracker\TimeTracker\ob
 c:\users\stoyan\documents\visual studio 2012\Projects\TimeTracker\TimeTracker\obj\Debug\TimeTracker.pdb
 C:\Users\Stoyan\documents\visual studio 2012\Projects\TimeTracker\TimeTracker\bin\TimeTracker.DAL.dll
 C:\Users\Stoyan\documents\visual studio 2012\Projects\TimeTracker\TimeTracker\bin\TimeTracker.DAL.pdb
+C:\Users\Stoyan\Documents\Visual Studio 2012\Projects\TimeTracker\TimeTracker\bin\Kendo.Mvc.dll
+C:\Users\Stoyan\Documents\Visual Studio 2012\Projects\TimeTracker\TimeTracker\bin\Kendo.Mvc.xml
+C:\Users\Stoyan\Documents\Visual Studio 2012\Projects\TimeTracker\TimeTracker\bin\bg-BG\Kendo.Mvc.resources.dll
+C:\Users\Stoyan\Documents\Visual Studio 2012\Projects\TimeTracker\TimeTracker\bin\da-DK\Kendo.Mvc.resources.dll
+C:\Users\Stoyan\Documents\Visual Studio 2012\Projects\TimeTracker\TimeTracker\bin\de-DE\Kendo.Mvc.resources.dll
+C:\Users\Stoyan\Documents\Visual Studio 2012\Projects\TimeTracker\TimeTracker\bin\es-ES\Kendo.Mvc.resources.dll
+C:\Users\Stoyan\Documents\Visual Studio 2012\Projects\TimeTracker\TimeTracker\bin\fr-FR\Kendo.Mvc.resources.dll
+C:\Users\Stoyan\Documents\Visual Studio 2012\Projects\TimeTracker\TimeTracker\bin\nl-NL\Kendo.Mvc.resources.dll
+C:\Users\Stoyan\Documents\Visual Studio 2012\Projects\TimeTracker\TimeTracker\bin\pl-PL\Kendo.Mvc.resources.dll
+C:\Users\Stoyan\Documents\Visual Studio 2012\Projects\TimeTracker\TimeTracker\bin\pt-BR\Kendo.Mvc.resources.dll
+C:\Users\Stoyan\Documents\Visual Studio 2012\Projects\TimeTracker\TimeTracker\bin\pt-PT\Kendo.Mvc.resources.dll
+C:\Users\Stoyan\Documents\Visual Studio 2012\Projects\TimeTracker\TimeTracker\bin\ru-RU\Kendo.Mvc.resources.dll
+C:\Users\Stoyan\Documents\Visual Studio 2012\Projects\TimeTracker\TimeTracker\bin\uk-UA\Kendo.Mvc.resources.dll
+C:\Users\Stoyan\Documents\Visual Studio 2012\Projects\TimeTracker\TimeTracker\bin\zh-CN\Kendo.Mvc.resources.dll

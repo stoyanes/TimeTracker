@@ -5,4 +5,4 @@ C:\Users\Stoyan\documents\visual studio 2012\Projects\TimeTracker\TimeTracker.DA
 C:\Users\Stoyan\documents\visual studio 2012\Projects\TimeTracker\TimeTracker.DAL\bin\Debug\EntityFramework.xml
 C:\Users\Stoyan\documents\visual studio 2012\Projects\TimeTracker\TimeTracker.DAL\obj\Debug\TimeTracker.DAL.dll
 C:\Users\Stoyan\documents\visual studio 2012\Projects\TimeTracker\TimeTracker.DAL\obj\Debug\TimeTracker.DAL.pdb
-C:\Users\Stoyan\documents\visual studio 2012\Projects\TimeTracker\TimeTracker.DAL\obj\Debug\TimeTracker.DAL.csprojResolveAssemblyReference.cache
+C:\Users\Stoyan\Documents\Visual Studio 2012\Projects\TimeTracker\TimeTracker.DAL\obj\Debug\TimeTracker.DAL.csprojResolveAssemblyReference.cache

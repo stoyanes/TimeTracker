@@ -1,57 +1,21 @@
-﻿@model TimeTracker.Models.TaskViewModel
+﻿@model IEnumerable<TimeTracker.Models.UserTaskViewModel>
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
 
-<fieldset>
-    <legend>Task details</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Title)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Title)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Description)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Description)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.StartDate)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.StartDate)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.WorkedHoursCurrent)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.WorkedHoursCurrent)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.StatusId)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.StatusId)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.StatusMess)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.StatusMess)
-    </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+@(Html.Kendo().Grid(Model)
+    .Name("TaskDetails")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.UserName);
+        columns.Bound(p => p.FirstName);
+        columns.Bound(p => p.LastName);
+        columns.Bound(p => p.Title).Title("Task title");
+        columns.Bound(p => p.WorkedHoursCurrent).Title("Worked hours");
+        
+    })
+    .Sortable()
+    .Pageable()
+)  

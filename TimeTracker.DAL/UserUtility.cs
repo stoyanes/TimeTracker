@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -102,6 +103,25 @@ namespace TimeTracker.DAL
                     throw new Exception("Error!");
 
             }
+        }
+
+        public static List<User> GetAllUsersNotInTask(int taskId)
+        {
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
+            {
+                string query = @"select *
+                                from [TimeTrackerDb].[dbo].[Users] as usr
+                                where usr.IsDeleted = 0 and 
+                                    usr.UserId not in (select usrTask.UserID
+						                               from [TimeTrackerDb].[dbo].[UsersTasks] as usrTask
+						                                where usrTask.TaskId = {0}
+						                                )";
+
+                object[] parameters = { taskId };
+                var result = (context as IObjectContextAdapter).ObjectContext.ExecuteStoreQuery<User>(query, parameters);
+                return result.ToList<User>();
+            }
+
         }
     }
 }

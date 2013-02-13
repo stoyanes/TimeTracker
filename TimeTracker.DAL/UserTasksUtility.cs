@@ -55,5 +55,19 @@ namespace TimeTracker.DAL
                 context.SaveChanges();
             }
         }
+
+        public static List<UsersTask> GetAllUsersOnTask(int taskId)
+        {
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
+            {
+                List<UsersTask> result = (from usrTsk in context.UsersTasks
+                                          where usrTsk.TaskId == taskId
+                                          select usrTsk).ToList<UsersTask>();
+
+                return result;
+            }
+        }
+
+        
     }
 }

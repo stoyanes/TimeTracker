@@ -3,80 +3,30 @@
 @{
     ViewBag.Title = "Current";
 }
-
+  
 <h2>Current tasks for @User.Identity.Name</h2>
 <br />
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Task.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.WorkedHours)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </th>
-        <th>
-            @Html.DisplayName("Task Status")
-        </th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Task.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WorkedHours)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
-        </td>
-        <td>
-            
-            @switch (item.Task.StatusId)
+@(Html.Kendo().Grid(Model)
+    .Name("CurrentTasks")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.Task.Title);
+        columns.Bound(p => p.StartDate).Title("Start date");
+        columns.Bound(p => p.WorkedHours).Title("Worked hours");
+        columns.Template((p) =>
+        {
+            switch (p.Task.StatusId)
             {
-                case 1: 
-                    <text>
-                        New
-                    </text> 
-                break;
-                
-                case 2:               
-                    <text>
-                        Started
-                    </text>
-                break;
-                
-                case 3:               
-                    <text>
-                        Finished
-                    </text>
-                break;
-                case 4:               
-                    <text>
-                        Canceled
-                    </text>
-                break;
-                default: 
-                <text>
-                        No Task Status Availble
-                </text>
-                break;         
-            }          
-        </td>
-        <td>
-            @Html.ActionLink("Fill working card", "FillWorkingCard", "WorkingCard", new {id = item.TaskId }, null)
-            
-        </td> 
-    </tr>
-}
-
-</table>
+                case 1: return "New";
+                case 2: return "Started";
+                case 3: return "Finished";
+                case 4: return "Canceled";
+                default: return "No status";
+            }
+        }).Title("Status");
+        
+    })
+    .Sortable()
+    .Pageable()
+)   

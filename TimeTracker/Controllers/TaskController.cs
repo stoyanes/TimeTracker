@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using TimeTracker.DAL;
 using TimeTracker.Models;
+
 
 namespace TimeTracker.Controllers
 {
@@ -13,9 +13,8 @@ namespace TimeTracker.Controllers
         //
         // GET: /Task/
 
-        public ActionResult Index()
+        public ViewResult Index()
         {
-            ViewBag.UserName = User.Identity.Name;
             return View();
         }
 
@@ -24,10 +23,29 @@ namespace TimeTracker.Controllers
 
         public ActionResult Details(int id)
         {
-            Task task = TaskUtility.GetTaskById(id);
-            string message = TaskStatusUtility.GetStatMessById(task.StatusId);
-            TaskViewModel taskViewModel = new TaskViewModel(task, message);
-            return View(taskViewModel);
+            List<UsersTask> usrTsk = UserTasksUtility.GetAllUsersOnTask(id);
+            List<UserTaskViewModel> usrTskViewModel = new List<UserTaskViewModel>(usrTsk.Count);
+
+            User usr = new User();
+            Task task = new Task();
+
+            foreach (UsersTask item in usrTsk)
+            {
+                usr = UserUtility.GetUserById(item.UserID);
+                task = TaskUtility.GetTaskById(item.TaskId);
+
+                if (item.WorkedHours.HasValue)
+                {
+                    usrTskViewModel.Add(new UserTaskViewModel(usr.UserId, usr.UserName, usr.FirstName, usr.LastName, task.Id, task.Title, (int)item.WorkedHours.Value));
+                }
+                else
+                {
+                    usrTskViewModel.Add(new UserTaskViewModel(usr.UserId, usr.UserName, usr.FirstName, usr.LastName, task.Id, task.Title, 0));
+                }
+
+            }
+
+            return View(usrTskViewModel);
         }
 
         //
@@ -50,18 +68,26 @@ namespace TimeTracker.Controllers
                 task.Title = collection["Title"];
                 task.Description = collection["Description"];
                 task.StatusId = int.Parse(collection["StatusId"]);
-                if (collection["StartDate"] != null)
-                    task.StartDate = DateTime.Parse(collection["StartDate"]);
+                try
+                {
+                    if (collection["StartDate"] != null)
+                        task.StartDate = DateTime.Parse(collection["StartDate"]);
+                }
+                catch (FormatException)
+                {
+                    task.StartDate = DateTime.Today;
+                }
                 if (collection["EndDate"] != null)
                     task.EndDate = DateTime.Parse(collection["EndDate"]);
 
                 TaskUtility.CreateTask(task.Title, task.Description, task.StatusId, task.StartDate, task.EndDate);
-                // TaskUtility.CreateTask(task.Title, task.Description, task.StatusId);
-                return RedirectToAction("Index");
+
+
+                return RedirectToAction("Active");
             }
             catch
             {
-                return View();
+                return View("CreateTaskError");
             }
         }
 
@@ -70,11 +96,18 @@ namespace TimeTracker.Controllers
 
         public ActionResult Edit(int id)
         {
-            Task task = TaskUtility.GetTaskById(id);
-            TaskViewModel taskViewModel = new TaskViewModel(task);
-            List<User> usrList = UserUtility.GetAllActiveUsers();
-            ViewBag.users = usrList;
-            return View(taskViewModel);
+            try
+            {
+                Task task = TaskUtility.GetTaskById(id);
+                TaskViewModel taskViewModel = new TaskViewModel(task);
+                List<User> usrList = UserUtility.GetAllUsersNotInTask(id);
+                ViewBag.users = usrList;
+                return View(taskViewModel);
+            }
+            catch (Exception)
+            {
+                return View("TaskEditError");
+            }
         }
 
         //
@@ -89,8 +122,13 @@ namespace TimeTracker.Controllers
                 task.Title = collection["Title"];
                 task.Description = collection["Description"];
                 task.StatusId = int.Parse(collection["StatusId"]);
+                DateTime tmpDate = new DateTime();
                 if (collection["StartDate"] != null)
-                    task.StartDate = DateTime.Parse(collection["StartDate"]);
+                {
+                    tmpDate = DateTime.Parse(collection["StartDate"]);
+                    task.StartDate = tmpDate.Date;
+                }
+
                 int taskToUser = int.Parse(collection["TaskToUser"]);
 
                 TaskUtility.UpdateTask(id, task.Title, task.Description, task.StatusId, task.StartDate);
@@ -98,7 +136,7 @@ namespace TimeTracker.Controllers
                 // Adding a User to a specified task
                 UserTasksUtility.AddTaskToUser(taskToUser, id);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Active");
             }
             catch
             {
@@ -135,6 +173,7 @@ namespace TimeTracker.Controllers
 
         public ActionResult Active()
         {
+
             List<Task> tasks = TaskUtility.GetAllActiveTasks();
             List<TaskViewModel> viewModel = new List<TaskViewModel>(tasks.Count());
             string message = null;
@@ -161,6 +200,36 @@ namespace TimeTracker.Controllers
             }
         }
 
-        
+
+        [HttpGet]
+        public ActionResult ShowUsersToAdd(int id)
+        {
+
+            List<User> usrList = UserUtility.GetAllUsersNotInTask(id);
+            Task task = TaskUtility.GetTaskById(id);
+            ViewBag.TaskTitle = task.Title;
+            ViewBag.TaskId = task.Id;
+            return View(usrList);
+        }
+
+        public ActionResult AddUserToTask(int userId, int taskId)
+        {
+            try
+            {
+                UserTasksUtility.AddTaskToUser(userId, taskId);
+                User usr = UserUtility.GetUserById(userId);
+                Task tsk = TaskUtility.GetTaskById(taskId);
+
+                ViewBag.UserName = usr.UserName;
+                ViewBag.TaskTitle = tsk.Title;
+
+                return View();
+            }
+            catch (Exception)
+            {
+                return View("ErrorWithAddingUser");
+            }
+        }
+
     }
 }
