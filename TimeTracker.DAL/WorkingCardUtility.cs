@@ -15,7 +15,7 @@ namespace TimeTracker.DAL
                 WorkingCard wCard = new WorkingCard();
                 wCard.UserId = usrId;
                 wCard.TaskId = taskId;
-                wCard.StartDate = startDate.Value;
+                wCard.StartDate = DateTime.Parse(startDate.Value.ToString());
                 wCard.WorkingHours = hoursMin;
                 wCard.Description = description;
                 wCard.IsFilled = isFilled;
@@ -25,9 +25,6 @@ namespace TimeTracker.DAL
             }
         }
 
-        
-
-       
 
         public static List<WorkingCard> GetAllByUserName(string userName)
         {

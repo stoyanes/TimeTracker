@@ -25,6 +25,7 @@
                 default: return "No status";
             }
         }).Title("Status");
+        columns.Template(o => Html.ActionLink("Fill working card", "FillWorkingCard", "WorkingCard", new { id = o.TaskId}, null));
         
     })
     .Sortable()

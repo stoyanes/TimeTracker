@@ -15,6 +15,7 @@
         columns.Bound(p => p.StatusMess).Title("Status");
         columns.Template(o => Html.ActionLink("Details", "Details", "Task", new {id = o.Id }, null));
         columns.Template(o => Html.ActionLink("Edit", "Edit", "Task", new { id = o.Id }, null));
+        columns.Template(o => Html.ActionLink("Add user", "AddUserToTask", "Task", new { id = o.Id }, null));
         
     })
     .Sortable()

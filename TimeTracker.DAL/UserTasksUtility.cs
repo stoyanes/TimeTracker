@@ -29,7 +29,7 @@ namespace TimeTracker.DAL
             {
                 User usr = UserUtility.GetUserByName(userName);
                 var UserTasks = (from usrTasks in context.UsersTasks.Include("Task")
-                                 where usrTasks.UserID == usr.UserId
+                                 where usrTasks.UserID == usr.UserId && usrTasks.Task.IsDeleted == false
                                  select usrTasks).ToList<UsersTask>();
                 return UserTasks;
 
@@ -52,6 +52,7 @@ namespace TimeTracker.DAL
                 }
                 if (hours > 0)
                     usrTask.WorkedHours += hours;
+
                 context.SaveChanges();
             }
         }

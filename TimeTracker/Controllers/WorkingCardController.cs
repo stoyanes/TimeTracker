@@ -146,7 +146,9 @@ namespace TimeTracker.Controllers
             WorkingCardUtility.AddCardToDb(usr.UserId, id, workingCard.StartDate, workingCard.WorkingHours, workingCard.Description, workingCard.IsFilled);
 
             UserTasksUtility.UpdateUserWorkingHoursOnTask(usr.UserId, id, workingCard.WorkingHours.Hours);
-            return RedirectToAction("Index");
+            TaskUtility.UpdateWorkingHoursOnTask(id, workingCard.WorkingHours.Hours);
+
+            return RedirectToAction("Current", "Task");
 
         }
     }

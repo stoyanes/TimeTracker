@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TimeTracker.DAL
 {
@@ -81,6 +79,21 @@ namespace TimeTracker.DAL
                     taskResult.StartDate = sd;
                     context.SaveChanges();
                 }
+            }
+        }
+
+        public static void UpdateWorkingHoursOnTask(int tskId, int hours)
+        {
+            Task tsk = TaskUtility.GetTaskById(tskId);
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
+            {
+                context.Tasks.Attach(tsk);
+                if (hours > 0)
+                {
+                    tsk.WorkedHoursCurrent += hours;
+                }
+
+                context.SaveChanges();
             }
         }
     }

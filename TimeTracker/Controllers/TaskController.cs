@@ -212,23 +212,45 @@ namespace TimeTracker.Controllers
             return View(usrList);
         }
 
-        public ActionResult AddUserToTask(int userId, int taskId)
+        //  [HttpPost]
+        //  public ActionResult AddUserToTask(int userId, int taskId)
+        //  {
+        //      try
+        //      {
+        //          UserTasksUtility.AddTaskToUser(userId, taskId);
+        //          User usr = UserUtility.GetUserById(userId);
+        //          Task tsk = TaskUtility.GetTaskById(taskId);
+
+        //          ViewBag.UserName = usr.UserName;
+        //          ViewBag.TaskTitle = tsk.Title;
+
+        //          return View();
+        //      }
+        //      catch (Exception)
+        //      {
+        //          return View("ErrorWithAddingUser");
+        //      }
+        //  }
+
+        [HttpGet]
+        public ActionResult AddUserToTask(int taskId)
         {
-            try
-            {
-                UserTasksUtility.AddTaskToUser(userId, taskId);
-                User usr = UserUtility.GetUserById(userId);
-                Task tsk = TaskUtility.GetTaskById(taskId);
+            List<User> usrList = UserUtility.GetAllUsersNotInTask(taskId);
+            Task tsk = TaskUtility.GetTaskById(taskId);
+            ViewBag.TaskId = tsk.Id;
+            ViewBag.TaskTitle = tsk.Title;
 
-                ViewBag.UserName = usr.UserName;
-                ViewBag.TaskTitle = tsk.Title;
+            return View(usrList);
+        }
 
-                return View();
-            }
-            catch (Exception)
-            {
-                return View("ErrorWithAddingUser");
-            }
+        [HttpPost]
+        public ActionResult AddUserToTask(int id, FormCollection collection)
+        {
+            int taskToUser = int.Parse(collection["TaskToUser"]);
+            UserTasksUtility.AddTaskToUser(taskToUser, id);
+
+            return RedirectToAction("Active");
+
         }
 
     }

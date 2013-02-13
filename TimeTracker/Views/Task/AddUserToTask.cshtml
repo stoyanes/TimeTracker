@@ -1,5 +1,14 @@
-﻿@{
+﻿@model IEnumerable<TimeTracker.DAL.User>
+
+@{
     ViewBag.Title = "AddUserToTask";
 }
 
-<h2>You have succsessfuly added user "@ViewBag.UserName" to task "@ViewBag.TaskTitle" </h2>
+<h2>Choose a user to be added, to task "@ViewBag.TaskTitle" </h2>
+
+@using (Html.BeginForm("AddUserToTask", "Task", new {id = @ViewBag.TaskId }))
+{
+    @Html.DropDownList("TaskToUser", new SelectList(Model, "UserId", "UserName"))
+    <input type="submit" value="Add to task" />
+    
+}
