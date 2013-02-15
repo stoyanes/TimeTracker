@@ -4,9 +4,12 @@
     ViewBag.Title = "FillWorkingCard";
 }
 
-<h2>FillWorkingCard</h2>
-
-@using (Html.BeginForm()) {
+<p>
+    This is the place where you fill your working card. Note that, once filled, working card can not be changed!
+</p>
+<br />
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
@@ -15,19 +18,29 @@
         <div class="editor-label">
             @Html.LabelFor(model => model.StartDate)
         </div>
+        
         <div class="editor-field">
-            @Html.EditorFor(model => model.StartDate)
-            @Html.ValidationMessageFor(model => model.StartDate)
-        </div>
+            @(Html.Kendo().DatePicker()
+                .Name("StartDate")
+                .Min(new DateTime(1900, 1, 1)) 
+                .Max(new DateTime(2099, 12, 31)) 
+                .Format("dd/MM/yyyy")
 
+            )
+        </div>
+        <br />
         <div class="editor-label">
             @Html.LabelFor(model => model.WorkingHours)
         </div>
         <div class="editor-field">
+            <p>
+                Note: Maximum 14 hours allowed. Use format: HH:MM, where HH is for hours, MM is for minutes.
+            </p>
             @Html.EditorFor(model => model.WorkingHours)
             @Html.ValidationMessageFor(model => model.WorkingHours)
+            
         </div>
-
+        <br />
         <div class="editor-label">
             @Html.LabelFor(model => model.Description)
         </div>
@@ -45,9 +58,10 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Current", "Task")
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/kendo")
 }

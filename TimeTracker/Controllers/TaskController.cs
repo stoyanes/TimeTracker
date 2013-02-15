@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using TimeTracker.DAL;
 using TimeTracker.Models;
+
 
 
 namespace TimeTracker.Controllers
@@ -21,7 +23,7 @@ namespace TimeTracker.Controllers
         //
         // GET: /Task/Details/5
 
-        public ActionResult Details(int id)
+        public ViewResult Details(int id)
         {
             List<UsersTask> usrTsk = UserTasksUtility.GetAllUsersOnTask(id);
             List<UserTaskViewModel> usrTskViewModel = new List<UserTaskViewModel>(usrTsk.Count);
@@ -62,52 +64,38 @@ namespace TimeTracker.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
+            TaskModel task = new TaskModel();
+            task.Title = collection["Title"];
+            task.Description = collection["Description"];
+            task.StatusId = int.Parse(collection["StatusId"]);
             try
             {
-                TaskModel task = new TaskModel();
-                task.Title = collection["Title"];
-                task.Description = collection["Description"];
-                task.StatusId = int.Parse(collection["StatusId"]);
-                try
-                {
-                    if (collection["StartDate"] != null)
-                        task.StartDate = DateTime.Parse(collection["StartDate"]);
-                }
-                catch (FormatException)
-                {
-                    task.StartDate = DateTime.Today;
-                }
-                if (collection["EndDate"] != null)
-                    task.EndDate = DateTime.Parse(collection["EndDate"]);
-
-                TaskUtility.CreateTask(task.Title, task.Description, task.StatusId, task.StartDate, task.EndDate);
-
-
-                return RedirectToAction("Active");
+                if (collection["StartDate"] != null)
+                    task.StartDate = DateTime.Parse(collection["StartDate"]);
             }
-            catch
+            catch (FormatException)
             {
-                return View("CreateTaskError");
+                task.StartDate = DateTime.Today;
             }
+            if (collection["EndDate"] != null)
+                task.EndDate = DateTime.Parse(collection["EndDate"]);
+
+            TaskUtility.CreateTask(task.Title, task.Description, task.StatusId, task.StartDate, task.EndDate);
+
+
+            return RedirectToAction("Active");
         }
+
+
 
         //
         // GET: /Task/Edit/5
 
         public ActionResult Edit(int id)
         {
-            try
-            {
-                Task task = TaskUtility.GetTaskById(id);
-                TaskViewModel taskViewModel = new TaskViewModel(task);
-                List<User> usrList = UserUtility.GetAllUsersNotInTask(id);
-                ViewBag.users = usrList;
-                return View(taskViewModel);
-            }
-            catch (Exception)
-            {
-                return View("TaskEditError");
-            }
+            Task task = TaskUtility.GetTaskById(id);
+            TaskViewModel taskViewModel = new TaskViewModel(task);
+            return View(taskViewModel);
         }
 
         //
@@ -116,32 +104,24 @@ namespace TimeTracker.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            try
+
+            TaskModel task = new TaskModel();
+            task.Title = collection["Title"];
+            task.Description = collection["Description"];
+            task.StatusId = int.Parse(collection["StatusId"]);
+
+            if (collection["StartDate"] != null)
             {
-                TaskModel task = new TaskModel();
-                task.Title = collection["Title"];
-                task.Description = collection["Description"];
-                task.StatusId = int.Parse(collection["StatusId"]);
-                DateTime tmpDate = new DateTime();
-                if (collection["StartDate"] != null)
-                {
-                    tmpDate = DateTime.Parse(collection["StartDate"]);
-                    task.StartDate = tmpDate.Date;
-                }
-
-                int taskToUser = int.Parse(collection["TaskToUser"]);
-
-                TaskUtility.UpdateTask(id, task.Title, task.Description, task.StatusId, task.StartDate);
-
-                // Adding a User to a specified task
-                UserTasksUtility.AddTaskToUser(taskToUser, id);
-
-                return RedirectToAction("Active");
+                task.StartDate = DateTime.Parse(collection["StartDate"]);
+                UserTasksUtility.UpdateUsersTaskDate(id, task.StartDate.Value);
             }
-            catch
-            {
-                return View();
-            }
+
+            TaskUtility.UpdateTask(id, task.Title, task.Description, task.StatusId, task.StartDate);
+
+
+            return RedirectToAction("Active");
+
+
         }
 
         //
@@ -170,7 +150,7 @@ namespace TimeTracker.Controllers
                 return View();
             }
         }
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Active()
         {
 
@@ -212,31 +192,12 @@ namespace TimeTracker.Controllers
             return View(usrList);
         }
 
-        //  [HttpPost]
-        //  public ActionResult AddUserToTask(int userId, int taskId)
-        //  {
-        //      try
-        //      {
-        //          UserTasksUtility.AddTaskToUser(userId, taskId);
-        //          User usr = UserUtility.GetUserById(userId);
-        //          Task tsk = TaskUtility.GetTaskById(taskId);
-
-        //          ViewBag.UserName = usr.UserName;
-        //          ViewBag.TaskTitle = tsk.Title;
-
-        //          return View();
-        //      }
-        //      catch (Exception)
-        //      {
-        //          return View("ErrorWithAddingUser");
-        //      }
-        //  }
 
         [HttpGet]
-        public ActionResult AddUserToTask(int taskId)
+        public ActionResult AddUserToTask(int id)
         {
-            List<User> usrList = UserUtility.GetAllUsersNotInTask(taskId);
-            Task tsk = TaskUtility.GetTaskById(taskId);
+            List<User> usrList = UserUtility.GetAllUsersNotInTask(id);
+            Task tsk = TaskUtility.GetTaskById(id);
             ViewBag.TaskId = tsk.Id;
             ViewBag.TaskTitle = tsk.Title;
 
@@ -251,6 +212,29 @@ namespace TimeTracker.Controllers
 
             return RedirectToAction("Active");
 
+        }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            string logErrorFile = HttpContext.Server.MapPath("~/App_Data/LogErrorFile.txt");
+            WriteLog(logErrorFile, filterContext.Exception.ToString());
+
+            if (!filterContext.HttpContext.IsCustomErrorEnabled)
+            {
+                filterContext.ExceptionHandled = true;
+                this.View("Error").ExecuteResult(this.ControllerContext);
+            }
+        }
+
+        static void WriteLog(string logFile, string text)
+        {
+            //TODO: Format nicer
+            StringBuilder message = new StringBuilder();
+            message.AppendLine(DateTime.Now.ToString());
+            message.AppendLine(text);
+            message.AppendLine("=========================================");
+
+            System.IO.File.AppendAllText(logFile, message.ToString());
         }
 
     }

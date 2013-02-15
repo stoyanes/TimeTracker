@@ -10,7 +10,7 @@ namespace TimeTracker.Tests.Controllers
     [TestClass]
     public class TaskControllerTest
     {
-        private TaskController controller = new TaskController();
+        private readonly TaskController controller = new TaskController();
 
         [TestMethod]
         public void Test_Index_Method_Return_Not_Null_View()
@@ -18,6 +18,14 @@ namespace TimeTracker.Tests.Controllers
             ViewResult result = this.controller.Index();
 
             Assert.IsNotNull(result, "Should have returned a ViewResult");
+        }
+
+        [TestMethod]
+        public void Test_Details_Method_Return_Not_Null()
+        {
+            ViewResult result = this.controller.Details(2004);
+
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using TimeTracker.DAL;
 using TimeTracker.Models;
@@ -103,22 +104,30 @@ namespace TimeTracker.Controllers
             }
         }
 
-        public ActionResult ShowAll()
+        public ActionResult ShowAll(int id)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                List<WorkingCard> allCard = WorkingCardUtility.GetAllByUserName(User.Identity.Name);
-                return View(allCard);
 
+            List<WorkingCard> allCards = WorkingCardUtility.GetAllByUserName(id);
+
+            List<WorkingCardViewModel> resultCards = new List<WorkingCardViewModel>(allCards.Count());
+
+            Task tsk = new Task();
+            foreach (WorkingCard item in allCards)
+            {
+                tsk = TaskUtility.GetTaskById(item.TaskId);
+                //WorkingCardViewModel(DateTime sd, TimeSpan wh, string d, bool isF, string taskTitle)
+                resultCards.Add(new WorkingCardViewModel(item.Id, item.StartDate, item.WorkingHours, item.Description, item.IsFilled.Value, tsk.Title));
             }
-            
-            return View();
+
+
+            return View(resultCards);
+
         }
 
 
         public ActionResult FillWorkingCard(int id)
         {
-            
+
             return View();
         }
 
@@ -137,7 +146,6 @@ namespace TimeTracker.Controllers
             {
                 workingCard.StartDate = DateTime.Now;
             }
-            // TODO validation logic
             workingCard.WorkingHours = TimeSpan.Parse(collection["WorkingHours"]);
 
             workingCard.Description = collection["Description"];
@@ -149,7 +157,30 @@ namespace TimeTracker.Controllers
             TaskUtility.UpdateWorkingHoursOnTask(id, workingCard.WorkingHours.Hours);
 
             return RedirectToAction("Current", "Task");
+        }
 
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            string logErrorFile = HttpContext.Server.MapPath("~/App_Data/LogErrorFile.txt");
+            WriteLog(logErrorFile, filterContext.Exception.ToString());
+
+            if (!filterContext.HttpContext.IsCustomErrorEnabled)
+            {
+                filterContext.ExceptionHandled = true;
+                this.View("Error").ExecuteResult(this.ControllerContext);
+            }
+        }
+
+        static void WriteLog(string logFile, string text)
+        {
+            //TODO: Format nicer
+            StringBuilder message = new StringBuilder();
+            message.AppendLine(DateTime.Now.ToString());
+            message.AppendLine(text);
+            message.AppendLine("=========================================");
+
+            System.IO.File.AppendAllText(logFile, message.ToString());
         }
     }
 }

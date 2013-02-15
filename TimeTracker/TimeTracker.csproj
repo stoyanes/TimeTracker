@@ -179,10 +179,12 @@
     <Compile Include="Models\UserTaskViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\WorkingCardModel.cs" />
+    <Compile Include="Models\WorkingCardViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validation\EmailAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\LogErrorFile.txt" />
     <Content Include="Content\Black\editor.png" />
     <Content Include="Content\Black\imagebrowser.png" />
     <Content Include="Content\Black\loading-image.gif" />
@@ -858,16 +860,12 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Task\Current.cshtml" />
     <Content Include="Views\WorkingCard\FillWorkingCard.cshtml" />
-    <Content Include="Views\WorkingCard\ShowAll.cshtml" />
     <Content Include="Views\Task\Details.cshtml" />
-    <Content Include="Views\Task\CreateTaskError.cshtml" />
-    <Content Include="Views\Task\TaskEditError.cshtml" />
     <Content Include="Views\Task\ShowUsersToAdd.cshtml" />
     <Content Include="Views\Task\AddUserToTask.cshtml" />
+    <Content Include="Views\WorkingCard\ShowAll.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

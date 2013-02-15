@@ -1,5 +1,5 @@
 ﻿@model TimeTracker.Models.TaskViewModel
-
+@using Kendo.Mvc.UI;
 @{
     ViewBag.Title = "Edit";
 }
@@ -38,11 +38,15 @@
         </div>
         <div class="editor-field">
 
-
-            @Html.EditorFor(model => model.StartDate);
-                @Html.ValidationMessageFor(model => model.StartDate)
-
-
+            @(Html.Kendo().DatePicker()
+                .Name("StartDate") //The name of the datepicker is mandatory. It specifies the "id" attribute of the widget.
+                .Min(new DateTime(1900, 1, 1)) //Set min date of the datepicker
+                .Max(new DateTime(2099, 12, 31)) //Set min date of the datepicker
+                .Format("dd/MM/yyyy")
+                
+                
+                //.Value(DateTime.Today) //Set the value of the datepicker
+            )
         </div>
 
         <div class="editor-label">
@@ -62,12 +66,6 @@
                 ))
         </div>
 
-        <div class="editor-label">
-            <label for="UserId">User to work on it</label>
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("TaskToUser", new SelectList(ViewBag.users, "UserId", "UserName"))
-        </div>
         <p>
             <input type="submit" value="Save" />
         </p>
@@ -79,6 +77,9 @@
 </div>
 
 
+
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/kendo")
 }

@@ -36,6 +36,7 @@ namespace TimeTracker.DAL
                 var tasks = (from task in context.Tasks
                              where task.IsDeleted == false
                              select task).ToList<Task>();
+
                 return tasks;
             }
         }

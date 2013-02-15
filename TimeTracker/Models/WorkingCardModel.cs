@@ -6,9 +6,11 @@ namespace TimeTracker.Models
 {
     public class WorkingCardModel
     {
+        public int wCardId { get; set; }
         public DateTime? StartDate { get; set; }
 
         [Required]
+        [RegularExpression(@"^(?:0?[0-9]|1[0-4]):[0-5][0-9]$", ErrorMessage = "Invalid time. Note: The correct format is HH:MM, where HH is for hours, MM is for minutes. Example: 7:45")]
         public TimeSpan WorkingHours { get; set; }
 
         [Required]
@@ -26,8 +28,9 @@ namespace TimeTracker.Models
             IsFilled = false;
         }
 
-        public WorkingCardModel(DateTime sd, TimeSpan wh, string d, bool isF)
+        public WorkingCardModel(int cardId, DateTime sd, TimeSpan wh, string d, bool isF)
         {
+            wCardId = cardId;
             StartDate = sd;
             WorkingHours = wh;
             Description = d;

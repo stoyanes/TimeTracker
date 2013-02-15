@@ -93,7 +93,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\StubHttpRequestForRouting.cs" />
+    <Compile Include="Controllers\WorkingCardControllerTest.cs" />
+    <Compile Include="Controllers\UsersControllerTest.cs" />
+    <Compile Include="Utilities\StubHttpRequestForRouting.cs" />
     <Compile Include="Controllers\TaskControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
@@ -105,6 +107,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TimeTracker.DAL\TimeTracker.DAL.csproj">
+      <Project>{41ba4786-6d6e-455d-9f3c-bfe5f56d3e25}</Project>
+      <Name>TimeTracker.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TimeTracker\TimeTracker.csproj">
       <Project>{8A52AC09-1EC4-4BF1-A9E9-12E413A15904}</Project>
       <Name>TimeTracker</Name>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using TimeTracker.DAL;
 using TimeTracker.Models;
@@ -79,6 +80,29 @@ namespace TimeTracker.Controllers
             List<Task> taskList = UserUtility.GetAllUserTasks(id);
 
             return View(taskList);
+        }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            string logErrorFile = HttpContext.Server.MapPath("~/App_Data/LogErrorFile.txt");
+            WriteLog(logErrorFile, filterContext.Exception.ToString());
+
+            if (!filterContext.HttpContext.IsCustomErrorEnabled)
+            {
+                filterContext.ExceptionHandled = true;
+                this.View("Error").ExecuteResult(this.ControllerContext);
+            }
+        }
+
+        static void WriteLog(string logFile, string text)
+        {
+            //TODO: Format nicer
+            StringBuilder message = new StringBuilder();
+            message.AppendLine(DateTime.Now.ToString());
+            message.AppendLine(text);
+            message.AppendLine("=========================================");
+
+            System.IO.File.AppendAllText(logFile, message.ToString());
         }
 
 

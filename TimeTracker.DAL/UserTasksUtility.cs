@@ -43,15 +43,17 @@ namespace TimeTracker.DAL
             {
                 UsersTask usrTask = new UsersTask();
                 usrTask = (from usrTsk in context.UsersTasks
-                           where usrTsk.TaskId == tskId && usrTsk.UserID == usrTsk.UserID
+                           where usrTsk.TaskId == tskId && usrTsk.UserID == usrId
                            select usrTsk).FirstOrDefault<UsersTask>();
                 context.UsersTasks.Attach(usrTask);
-                if (usrTask.WorkedHours == null)
+                if (!usrTask.WorkedHours.HasValue)
                 {
                     usrTask.WorkedHours = 0;
                 }
                 if (hours > 0)
+                {
                     usrTask.WorkedHours += hours;
+                }
 
                 context.SaveChanges();
             }
@@ -66,6 +68,24 @@ namespace TimeTracker.DAL
                                           select usrTsk).ToList<UsersTask>();
 
                 return result;
+            }
+        }
+
+
+        public static void UpdateUsersTaskDate(int taskId, DateTime date)
+        {
+            using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
+            {
+                List<UsersTask> tasksToUpdate = (from usrTask in context.UsersTasks
+                                                 where usrTask.TaskId == taskId
+                                                 select usrTask).ToList<UsersTask>();
+
+                for (int i = 0; i < tasksToUpdate.Count(); i++)
+                {
+                    tasksToUpdate[i].StartDate = date;
+                }
+
+                context.SaveChanges();
             }
         }
 

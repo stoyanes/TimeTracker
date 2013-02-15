@@ -26,11 +26,11 @@ namespace TimeTracker.DAL
         }
 
 
-        public static List<WorkingCard> GetAllByUserName(string userName)
+        public static List<WorkingCard> GetAllByUserName(int id)
         {
             using (TimeTrackerDbEntities context = new TimeTrackerDbEntities())
             {
-                User usr = UserUtility.GetUserByName(userName);
+                User usr = UserUtility.GetUserById(id);
                 List<WorkingCard> allCards = (from card in context.WorkingCard
                                               where card.UserId == usr.UserId
                                               select card).ToList<WorkingCard>();

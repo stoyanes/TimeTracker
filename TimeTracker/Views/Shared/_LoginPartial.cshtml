@@ -1,7 +1,7 @@
 ﻿@if (Request.IsAuthenticated) {
     <text>
         Hello, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
-        @if (Roles.IsUserInRole(User.Identity.Name, "Admin"))
+        @*@if (Roles.IsUserInRole(User.Identity.Name, "Admin"))
         {
             @Html.ActionLink("Register new user", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
             @Html.ActionLink("View all users", "Active", "Users")
@@ -13,7 +13,7 @@
         {
             // some logic for regular users
             @Html.ActionLink("Current tasks", "Current", "Task")
-        }
+        }*@
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
             @Html.AntiForgeryToken()
             <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
