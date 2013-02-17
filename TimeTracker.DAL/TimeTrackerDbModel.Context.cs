@@ -22,7 +22,14 @@ namespace TimeTracker.DAL
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            throw new UnintentionalCodeFirstException();
+            Database.SetInitializer<TimeTrackerDbEntities>(new CreateDatabaseIfNotExists<TimeTrackerDbEntities>());
+
+            modelBuilder.Entity<Task>().ToTable("Tasks", "TimeTrackerDb");
+            modelBuilder.Entity<TasksStatu>().ToTable("TasksStatus", "TimeTrackerDb");
+            modelBuilder.Entity<User>().ToTable("Users", "TimeTrackerDb");
+            modelBuilder.Entity<UsersTask>().ToTable("UsersTasks", "TimeTrackerDb");
+            modelBuilder.Entity<WorkingCard>().ToTable("WorkingCard", "TimeTrackerDb");
+
         }
     
         public DbSet<Task> Tasks { get; set; }
