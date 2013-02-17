@@ -21,6 +21,7 @@
         columns.Template(o => Html.ActionLink("Edit", "Edit", "Users", new {id = o.UserId }, null));
         columns.Template(o => Html.ActionLink("Details", "Details", "Users", new { id = o.UserId }, null));
         columns.Template(o => Html.ActionLink("Delete", "Delete", "Users", new { id = o.UserId }, null));
+        columns.Template(o => Html.ActionLink("Working cards", "ShowAll", "WorkingCard", new { id = o.UserId }, null));
         
     })
     .Sortable()

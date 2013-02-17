@@ -37,7 +37,7 @@
                         @if (Roles.IsUserInRole(User.Identity.Name, "RegularUser"))
                         {
                             // some logic for regular users
-                           <li> @Html.ActionLink("Current tasks", "Current", "Task")</li>
+                           <li> @Html.ActionLink("My tasks", "Current", "Task")</li>
                         }
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     </ul>

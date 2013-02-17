@@ -173,13 +173,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\TaskModel.cs" />
-    <Compile Include="Models\TaskViewModel.cs" />
-    <Compile Include="Models\UserTaskViewModel.cs" />
-    <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\AccountModels.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\WorkingCardModel.cs" />
-    <Compile Include="Models\WorkingCardViewModel.cs" />
+    <Compile Include="Models\TaskModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\TaskViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UserTaskViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UserViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validation\EmailAttribute.cs" />
   </ItemGroup>
@@ -864,6 +873,8 @@
     <Content Include="Views\Task\ShowUsersToAdd.cshtml" />
     <Content Include="Views\Task\AddUserToTask.cshtml" />
     <Content Include="Views\WorkingCard\ShowAll.cshtml" />
+    <Content Include="Views\WorkingCard\Details.cshtml" />
+    <Content Include="Views\WorkingCard\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -891,7 +902,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>50003</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:59601/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

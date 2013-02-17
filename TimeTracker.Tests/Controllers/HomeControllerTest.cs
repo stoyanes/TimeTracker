@@ -16,7 +16,7 @@ namespace TimeTracker.Tests.Controllers
 
 
         [TestMethod]
-        public void Index()
+        public void Test_Home_Controller_Index_Action_Set_View_Bag()
         {
             // Arrange
             HomeController controller = new HomeController();
@@ -31,7 +31,7 @@ namespace TimeTracker.Tests.Controllers
 
 
         [TestMethod]
-        public void About()
+        public void Test_Home_Controller_About_Action_For_Returning_Not_Null()
         {
             // Arrange
             HomeController controller = new HomeController();
@@ -44,7 +44,7 @@ namespace TimeTracker.Tests.Controllers
         }
 
         [TestMethod]
-        public void Contact()
+        public void Test_Home_Controller_Contact_Action_For_Returning_Not_Null_View()
         {
             // Arrange
             HomeController controller = new HomeController();

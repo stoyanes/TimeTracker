@@ -7,6 +7,9 @@ namespace TimeTracker.Models
     public class WorkingCardModel
     {
         public int wCardId { get; set; }
+
+        public string TaskTitle { get; set; }
+
         public DateTime? StartDate { get; set; }
 
         [Required]
@@ -26,15 +29,17 @@ namespace TimeTracker.Models
             WorkingHours = new TimeSpan();
             Description = string.Empty;
             IsFilled = false;
+            TaskTitle = string.Empty;
         }
 
-        public WorkingCardModel(int cardId, DateTime sd, TimeSpan wh, string d, bool isF)
+        public WorkingCardModel(int cardId, DateTime sd, TimeSpan wh, string d, bool isF, string title = "")
         {
             wCardId = cardId;
             StartDate = sd;
             WorkingHours = wh;
             Description = d;
             IsFilled = isF;
+            TaskTitle = title;
         }
     }
 }

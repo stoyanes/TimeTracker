@@ -23,42 +23,26 @@ namespace TimeTracker.Controllers
 
         public ActionResult Details(int id)
         {
-            return View();
+            WorkingCard wCard = WorkingCardUtility.GetWorkingCardById(id);
+            return View(wCard);
         }
 
-        //
-        // GET: /WorkingCard/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        //
-        // POST: /WorkingCard/Create
-
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         //
         // GET: /WorkingCard/Edit/5
 
         public ActionResult Edit(int id)
         {
-            return View();
+            WorkingCard wCard = WorkingCardUtility.GetWorkingCardById(id);
+
+            Task tsk = TaskUtility.GetTaskById(wCard.TaskId);
+
+            WorkingCardModel resultCard = new WorkingCardModel(wCard.Id, wCard.StartDate, wCard.WorkingHours, wCard.Description, wCard.IsFilled.Value, tsk.Title);
+
+
+            return View(resultCard);
         }
+
 
         //
         // POST: /WorkingCard/Edit/5
@@ -66,42 +50,16 @@ namespace TimeTracker.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            try
-            {
-                // TODO: Add update logic here
+            WorkingCard wCard = new WorkingCard();
+            wCard.Id = id;
+            wCard.StartDate = DateTime.Parse(collection["StartDate"]);
+            wCard.Description = collection["Description"];
+            wCard.WorkingHours = TimeSpan.Parse(collection["WorkingHours"]);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            WorkingCardUtility.UpdateWoringCard(wCard);
+            return RedirectToAction("Active", "Users");
 
-        //
-        // GET: /WorkingCard/Delete/5
 
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /WorkingCard/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         public ActionResult ShowAll(int id)
@@ -109,14 +67,13 @@ namespace TimeTracker.Controllers
 
             List<WorkingCard> allCards = WorkingCardUtility.GetAllByUserName(id);
 
-            List<WorkingCardViewModel> resultCards = new List<WorkingCardViewModel>(allCards.Count());
+            List<WorkingCardModel> resultCards = new List<WorkingCardModel>(allCards.Count());
 
             Task tsk = new Task();
             foreach (WorkingCard item in allCards)
             {
                 tsk = TaskUtility.GetTaskById(item.TaskId);
-                //WorkingCardViewModel(DateTime sd, TimeSpan wh, string d, bool isF, string taskTitle)
-                resultCards.Add(new WorkingCardViewModel(item.Id, item.StartDate, item.WorkingHours, item.Description, item.IsFilled.Value, tsk.Title));
+                resultCards.Add(new WorkingCardModel(item.Id, item.StartDate, item.WorkingHours, item.Description, item.IsFilled.Value, tsk.Title));
             }
 
 
@@ -124,7 +81,7 @@ namespace TimeTracker.Controllers
 
         }
 
-
+        // id - task id
         public ActionResult FillWorkingCard(int id)
         {
 
@@ -132,6 +89,7 @@ namespace TimeTracker.Controllers
         }
 
         [HttpPost]
+        // id - task id
         public ActionResult FillWorkingCard(int id, FormCollection collection)
         {
 
@@ -148,13 +106,23 @@ namespace TimeTracker.Controllers
             }
             workingCard.WorkingHours = TimeSpan.Parse(collection["WorkingHours"]);
 
+
+            // This portion code is for simple computing of working hours. Due to my stupid implementation in database
+            // where hours is int/float I just add 1 hour when minutes are >= 30
+
+            int tmpMins = 0;
+            if (workingCard.WorkingHours.Minutes >= 30)
+            {
+                tmpMins += 1;
+            }
+
             workingCard.Description = collection["Description"];
             workingCard.IsFilled = true;
 
             WorkingCardUtility.AddCardToDb(usr.UserId, id, workingCard.StartDate, workingCard.WorkingHours, workingCard.Description, workingCard.IsFilled);
 
-            UserTasksUtility.UpdateUserWorkingHoursOnTask(usr.UserId, id, workingCard.WorkingHours.Hours);
-            TaskUtility.UpdateWorkingHoursOnTask(id, workingCard.WorkingHours.Hours);
+            UserTasksUtility.UpdateUserWorkingHoursOnTask(usr.UserId, id, workingCard.WorkingHours.Hours + tmpMins);
+            TaskUtility.UpdateWorkingHoursOnTask(id, workingCard.WorkingHours.Hours + tmpMins);
 
             return RedirectToAction("Current", "Task");
         }
@@ -174,7 +142,6 @@ namespace TimeTracker.Controllers
 
         static void WriteLog(string logFile, string text)
         {
-            //TODO: Format nicer
             StringBuilder message = new StringBuilder();
             message.AppendLine(DateTime.Now.ToString());
             message.AppendLine(text);
